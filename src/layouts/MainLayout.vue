@@ -1,13 +1,75 @@
 <template>
   <q-layout view="hHh lpR fff">
     <q-header reveal elevated class="bg-primary text-white">
-      <q-toolbar>
+      <q-toolbar class="q-gutter-x-sm">
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
           </q-avatar>
           ChangeLogs
         </q-toolbar-title>
+        <q-btn dense round flat icon="notifications_active">
+          <q-badge color="red" rounded floating transparent label="1"/>
+        </q-btn>
+        <q-btn dense round flat icon="email">
+          <q-badge color="red" rounded floating transparent label="4" />
+        </q-btn>
+        <q-btn flat round dense icon="add_box">
+          <q-menu>
+            <q-list style="min-width: 150px">
+              <q-item clickable v-close-popup>
+                <q-item-section>New changelog</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup>
+                <q-item-section>New Project</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup>
+                <q-item-section>New Organization</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>Import changelog</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
+        <q-btn round flat>
+          <q-avatar size="42px">
+            <img src="https://cdn.quasar.dev/img/avatar.png" />
+          </q-avatar>
+          <q-menu>
+            <q-list style="min-width: 100px">
+              <q-item clickable v-close-popup>
+                <q-item-section>anonymouse</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup>
+                <q-item-section>Your profile</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>Your projects</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup>
+                <q-item-section>Your organizations</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup>
+                <q-item-section>Your following</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>Settings</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>Help &amp; Feedback</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>Sign out</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
