@@ -4,7 +4,7 @@
       <q-toolbar class="q-gutter-x-sm">
         <q-toolbar-title>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+            <img alt="ChangeLogs logo" src="~assets/changelogs-logo.svg">
           </q-avatar>
           ChangeLogs
         </q-toolbar-title>
