@@ -8,26 +8,26 @@
           </q-avatar>
           ChangeLogs
         </q-toolbar-title>
-        <q-btn dense round flat icon="notifications_active">
+        <q-btn dense round flat icon="notifications_active" to="/notifications">
           <q-badge color="red" rounded floating transparent label="1"/>
         </q-btn>
-        <q-btn dense round flat icon="email">
+        <q-btn dense round flat icon="email" to="/messages">
           <q-badge color="red" rounded floating transparent label="4" />
         </q-btn>
         <q-btn flat round dense icon="add_box">
           <q-menu>
             <q-list style="min-width: 150px">
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/new">
                 <q-item-section>New changelog</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/project/new">
                 <q-item-section>New Project</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/organization/new">
                 <q-item-section>New Organization</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/import">
                 <q-item-section>Import changelog</q-item-section>
               </q-item>
             </q-list>
@@ -39,28 +39,25 @@
           </q-avatar>
           <q-menu>
             <q-list style="min-width: 100px">
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/anonymouse">
                 <q-item-section>anonymouse</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
-                <q-item-section>Your profile</q-item-section>
-              </q-item>
               <q-separator />
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/anonymouse/projects">
                 <q-item-section>Your projects</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/anonymouse/organizations">
                 <q-item-section>Your organizations</q-item-section>
               </q-item>
               <q-item clickable v-close-popup>
                 <q-item-section>Your following</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/anonymouse/settings">
                 <q-item-section>Settings</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/help">
                 <q-item-section>Help &amp; Feedback</q-item-section>
               </q-item>
               <q-separator />

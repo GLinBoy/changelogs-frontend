@@ -18,7 +18,7 @@ const routes: RouteConfig[] = [
         name: 'Profile',
         component: () => import('pages/Profile.vue'),
         children: [
-          { path: 'edit', name: 'ProfileEdit', component: () => import('pages/ProfileEdit.vue') },
+          { path: 'settings', name: 'ProfileEdit', component: () => import('pages/ProfileEdit.vue') },
           { path: 'projects', name: 'Projects', component: () => import('pages/Projects.vue') },
           { path: 'organizations', name: 'Organizations', component: () => import('pages/Organizations.vue') }
         ]
