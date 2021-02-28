@@ -6,9 +6,9 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', name: 'Home', component: () => import('pages/Index.vue') },
-      { path: 'organization/new', name: 'OrganizationNew', component: () => import('pages/OrganizationEdit.vue') },
-      { path: 'project/new', name: 'ProjectNew', component: () => import('pages/ProjectEdit.vue') },
-      { path: 'new', name: 'ChangeLogNew', component: () => import('pages/ChangeLogEdit.vue') },
+      { path: 'organization/new', name: 'OrganizationNew', component: () => import('pages/organization/OrganizationEdit.vue') },
+      { path: 'project/new', name: 'ProjectNew', component: () => import('pages/project/ProjectEdit.vue') },
+      { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogEdit.vue') },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
       { path: 'notifications', name: 'Notifications', component: () => import('pages/Notifications.vue') },
       { path: 'messages', name: 'Messages', component: () => import('pages/Messages.vue') },
@@ -16,19 +16,19 @@ const routes: RouteConfig[] = [
       {
         path: ':username',
         name: 'Profile',
-        component: () => import('pages/Profile.vue'),
+        component: () => import('pages/profile/Profile.vue'),
         children: [
-          { path: 'settings', name: 'ProfileEdit', component: () => import('pages/ProfileEdit.vue') },
-          { path: 'projects', name: 'Projects', component: () => import('pages/Projects.vue') },
-          { path: 'organizations', name: 'Organizations', component: () => import('pages/Organizations.vue') }
+          { path: 'settings', name: 'ProfileEdit', component: () => import('pages/profile/ProfileEdit.vue') },
+          { path: 'projects', name: 'Projects', component: () => import('pages/project/Projects.vue') },
+          { path: 'organizations', name: 'Organizations', component: () => import('pages/organization/Organizations.vue') }
         ]
       },
       {
         path: ':username/:project',
-        component: () => import('pages/changeLogs.vue'),
+        component: () => import('pages/changelog/changeLogs.vue'),
         children: [
-          { path: '', name: 'ChangeLogs', component: () => import('pages/changeLogs.vue') },
-          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changeLogs.vue') }
+          { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/changeLogs.vue') },
+          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/changeLogs.vue') }
         ]
       }
     ]
