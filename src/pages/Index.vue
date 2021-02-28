@@ -17,7 +17,7 @@ import { defineComponent, ref } from '@vue/composition-api'
 export default defineComponent({
   name: 'PageIndex',
   components: { ExampleComponent },
-  setup () {
+  setup (_, context) {
     const todos = ref<Todo[]>([
       {
         id: 1,
@@ -43,6 +43,16 @@ export default defineComponent({
     const meta = ref<Meta>({
       totalCount: 1200
     })
+    const axios = context.root.$axios
+    axios.get('http://localhost:8080/api/v1/changelog')
+      .then(response => {
+        // handle success
+        console.log(response.data)
+      })
+      .catch(error => {
+        // handle error
+        console.log(error)
+      })
     return { todos, meta }
   }
 })

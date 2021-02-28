@@ -5,7 +5,32 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', name: 'Home', component: () => import('pages/Index.vue') },
+      { path: 'organization/new', name: 'OrganizationNew', component: () => import('pages/OrganizationEdit.vue') },
+      { path: 'project/new', name: 'ProjectNew', component: () => import('pages/ProjectEdit.vue') },
+      { path: 'new', name: 'ChangeLogNew', component: () => import('pages/ChangeLogEdit.vue') },
+      { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
+      { path: 'notifications', name: 'Notifications', component: () => import('pages/Notifications.vue') },
+      { path: 'messages', name: 'Messages', component: () => import('pages/Messages.vue') },
+      { path: 'help', name: 'Help', component: () => import('pages/Help.vue') },
+      {
+        path: ':username',
+        name: 'Profile',
+        component: () => import('pages/Profile.vue'),
+        children: [
+          { path: 'edit', name: 'ProfileEdit', component: () => import('pages/ProfileEdit.vue') },
+          { path: 'projects', name: 'Projects', component: () => import('pages/Projects.vue') },
+          { path: 'organizations', name: 'Organizations', component: () => import('pages/Organizations.vue') }
+        ]
+      },
+      {
+        path: ':username/:project',
+        component: () => import('pages/changeLogs.vue'),
+        children: [
+          { path: '', name: 'ChangeLogs', component: () => import('pages/changeLogs.vue') },
+          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changeLogs.vue') }
+        ]
+      }
     ]
   },
   {
