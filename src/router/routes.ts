@@ -1,6 +1,7 @@
 import { RouteConfig } from 'vue-router'
 
 const routes: RouteConfig[] = [
+  { path: '/login', name: 'Login', component: () => import('pages/Login.vue') },
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
