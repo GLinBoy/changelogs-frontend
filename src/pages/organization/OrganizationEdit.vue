@@ -16,13 +16,19 @@
             </div>
             <div class="row q-pb-lg">
               <div class="col-12">
-                <q-input required dense filled label="Organization account name" v-model="organization.name"
-                  :hint="'This will be the name of your account on ChangeLogs.Your URL will be: https://changelogs.info/' + organization.title"/>
+                <q-input required dense filled label="Organization account name" v-model.trim="organization.name"
+                  :rules="[val => !!val || 'Field is required',
+                    val => val.match('^[A-Za-z0-9 ]+$') || 'Field may only contain alphanumeric characters']"
+                  :hint="'This will be the name of your account on ChangeLogs.Your URL will be: https://changelogs.info/'
+                    + organization.title"/>
               </div>
             </div>
             <div class="row q-pb-lg">
               <div class="col-12">
-                <q-input required dense filled label="Contact email" v-model="organization.email" />
+                <q-input required dense filled label="Contact email"
+                  :rules="[val => !!val || 'Field is required',
+                    val => validEmail(val) || 'Invalid email address']"
+                  v-model.trim="organization.email" />
               </div>
             </div>
             <div class="row">
@@ -39,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
 
 export default defineComponent({
@@ -51,12 +57,23 @@ export default defineComponent({
       email: ''
     })
 
+    watch(() => organization.value.name, (nextName, prevName) => {
+      organization.value.title = nextName.replace(/\s\s+/g, ' ').trim()
+        .replace(/\s+/g, '-').toLowerCase()
+    })
+
     const saveOrganization = () => {
       console.log('Organization saved!', organization.value)
     }
 
+    const validEmail = (email) => {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
     return {
       organization,
+      validEmail,
       saveOrganization
     }
   }
