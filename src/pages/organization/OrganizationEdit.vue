@@ -57,7 +57,7 @@ export default defineComponent({
       email: ''
     })
 
-    watch(() => organization.value.name, (nextName, prevName) => {
+    watch(() => organization.value.name, (nextName) => {
       organization.value.title = nextName.replace(/\s\s+/g, ' ').trim()
         .replace(/\s+/g, '-').toLowerCase()
     })
@@ -66,9 +66,9 @@ export default defineComponent({
       console.log('Organization saved!', organization.value)
     }
 
-    const validEmail = (email) => {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+    const validEmail = (email: string) => {
+      var re = /^(([^<>()/[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
     }
 
     return {
