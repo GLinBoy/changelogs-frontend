@@ -34,6 +34,7 @@
             <div class="row">
               <div class="col-12">
                 <q-btn dense color="primary" class="full-width"
+                  :disable="saveStatus"
                   size="xl" label="Save" @click="saveOrganization"/>
               </div>
             </div>
@@ -45,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from '@vue/composition-api'
+import { defineComponent, ref, computed, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
 
 export default defineComponent({
@@ -62,6 +63,12 @@ export default defineComponent({
         .replace(/\s+/g, '-').toLowerCase()
     })
 
+    const saveStatus = computed(() => {
+      return !(!!organization.value.name &&
+        !!organization.value.email &&
+        validEmail(organization.value.email))
+    })
+
     const saveOrganization = () => {
       console.log('Organization saved!', organization.value)
     }
@@ -74,6 +81,7 @@ export default defineComponent({
     return {
       organization,
       validEmail,
+      saveStatus,
       saveOrganization
     }
   }
