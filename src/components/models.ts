@@ -13,3 +13,18 @@ export interface Organization {
   title: string;
   email: string;
 }
+
+export interface Project {
+  id?: number;
+  isActive: boolean;
+  name: string;
+  title: string;
+  about?: string;
+  logo?: string;
+  owner: string;
+  publicAccess: boolean;
+  website?: string;
+  readmeLink?: string;
+  licenseLink?: string;
+  organizationId?: number;
+}
