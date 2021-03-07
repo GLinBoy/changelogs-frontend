@@ -35,7 +35,7 @@
         </q-btn>
         <q-btn round flat>
           <q-avatar size="42px">
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
+            <img src="/images/avatar.svg" />
           </q-avatar>
           <q-menu>
             <q-list style="min-width: 100px">
