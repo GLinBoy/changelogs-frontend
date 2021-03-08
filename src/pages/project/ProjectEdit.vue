@@ -49,11 +49,11 @@
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.readmeLink" label="Project README" />
+                    v-model="project.readmeLink" label="Project README link" />
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.licenseLink" label="Project license" />
+                    v-model="project.licenseLink" label="Project license link" />
                 </div>
                 <div class="col-12">
                   <q-toggle disable dense v-model="project.publicAccess" label="Public Access"/>
