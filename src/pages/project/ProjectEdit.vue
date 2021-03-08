@@ -116,6 +116,10 @@ export default defineComponent({
       }
     ])
 
+    const defaultOrganization = orgs.value.find(o => o.id === undefined)
+    console.log(defaultOrganization)
+    project.value.owner = defaultOrganization.content
+
     const saveProject = () => {
       console.log('Project saved!', project.value)
     }
