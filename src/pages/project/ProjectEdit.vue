@@ -21,11 +21,14 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <q-input filled dense required
-                    v-model.trim="project.name" label="Project name" />
-                </div>
-                <div class="col-12">
-                  <span>{{'Your project URL will be: https://changelogs.info/'
-                    + project.owner + '/' + project.title }}</span>
+                    v-model.trim="project.name" label="Project name"
+                    :rules="[val => !!val || 'Field is required',
+                    val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']">
+                    <template v-slot:hint>
+                      {{'Your project URL will be: https://changelogs.info/'
+                        + project.owner + '/' + project.title }}
+                    </template>
+                  </q-input>
                 </div>
                 <div class="col-12">
                   <q-input filled dense
@@ -44,16 +47,19 @@
                   </q-file>
                 </div>
                 <div class="col-12">
-                  <q-input filled dense
-                    v-model.trim="project.website" label="Project website" />
+                  <q-input filled dense lazy-rules clearable
+                    v-model.trim="project.website" label="Project website"
+                    :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
                 <div class="col-12">
-                  <q-input filled dense
-                    v-model.trim="project.readmeLink" label="Project README link" />
+                  <q-input filled dense lazy-rules clearable
+                    v-model.trim="project.readmeLink" label="Project README link"
+                    :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
                 <div class="col-12">
-                  <q-input filled dense
-                    v-model.trim="project.licenseLink" label="Project license link" />
+                  <q-input filled dense lazy-rules clearable
+                    v-model.trim="project.licenseLink" label="Project license link"
+                    :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
                 <div class="col-12">
                   <q-toggle disable dense v-model="project.publicAccess" label="Public Access"/>
@@ -74,6 +80,8 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from '@vue/composition-api'
 import { Project, Owner } from 'components/models'
+import { validateName, validateURL } from 'components/validators'
+import { titleGenerator } from 'components/TitleGenerator'
 
 export default defineComponent({
   name: 'ProjectEdit',
@@ -94,8 +102,7 @@ export default defineComponent({
     })
 
     watch(() => project.value.name, (nextName) => {
-      project.value.title = nextName.replace(/\s\s+/g, ' ').trim()
-        .replace(/\s+/g, '-').toLowerCase()
+      project.value.title = titleGenerator(nextName)
     })
 
     const orgs = ref<Owner[]>([
@@ -138,6 +145,8 @@ export default defineComponent({
 
     return {
       project,
+      validateName,
+      validateURL,
       orgs,
       saveProject
     }
