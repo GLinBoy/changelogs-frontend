@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <q-input filled dense required
-                    v-model="project.name" label="Project name" />
+                    v-model.trim="project.name" label="Project name" />
                 </div>
                 <div class="col-12">
                   <span>{{'Your project URL will be: https://changelogs.info/'
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.about" label="About your project" />
+                    v-model.trim="project.about" label="About your project" />
                 </div>
                 <div class="col-12">
                   <q-file filled dense clearable counter bottom-slots
@@ -45,15 +45,15 @@
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.website" label="Project website" />
+                    v-model.trim="project.website" label="Project website" />
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.readmeLink" label="Project README link" />
+                    v-model.trim="project.readmeLink" label="Project README link" />
                 </div>
                 <div class="col-12">
                   <q-input filled dense
-                    v-model="project.licenseLink" label="Project license link" />
+                    v-model.trim="project.licenseLink" label="Project license link" />
                 </div>
                 <div class="col-12">
                   <q-toggle disable dense v-model="project.publicAccess" label="Public Access"/>
