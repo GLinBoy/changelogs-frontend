@@ -28,3 +28,9 @@ export interface Project {
   licenseLink?: string;
   organizationId?: number;
 }
+
+export interface Owner {
+  id?: number;
+  name: string;
+  title: string;
+}

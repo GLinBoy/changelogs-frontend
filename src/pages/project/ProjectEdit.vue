@@ -15,8 +15,8 @@
                 <div class="col-xs-12 col-md-4">
                   <q-select filled dense options-dense required
                     v-model="project.owner" emit-value
-                    option-value="content"
-                    option-label="content"
+                    option-value="title"
+                    option-label="name"
                     :options="orgs" label="Owner" />
                 </div>
                 <div class="col-xs-12 col-md-8">
@@ -24,8 +24,8 @@
                     v-model="project.name" label="Project name" />
                 </div>
                 <div class="col-12">
-                  <q-input filled dense required
-                    v-model="project.title" label="Project title" />
+                  <span>{{'Your project URL will be: https://changelogs.info/'
+                    + project.owner + '/' + project.title }}</span>
                 </div>
                 <div class="col-12">
                   <q-input filled dense
@@ -72,8 +72,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
-import { Project } from 'components/models'
+import { defineComponent, ref, watch } from '@vue/composition-api'
+import { Project, Owner } from 'components/models'
 
 export default defineComponent({
   name: 'ProjectEdit',
@@ -93,32 +93,44 @@ export default defineComponent({
       organizationId: undefined
     })
 
-    const orgs = ref<any[]>([
+    watch(() => project.value.name, (nextName) => {
+      project.value.title = nextName.replace(/\s\s+/g, ' ').trim()
+        .replace(/\s+/g, '-').toLowerCase()
+    })
+
+    const orgs = ref<Owner[]>([
       {
         id: undefined,
-        content: 'anonymouse'
+        name: 'anonymouse',
+        title: 'anonymouse'
       },
       {
         id: 1,
-        content: 'Organization 1'
+        name: 'Organization 1',
+        title: 'organization-1'
       },
       {
         id: 2,
-        content: 'Organization 2'
+        name: 'Organization 2',
+        title: 'organization-2'
       },
       {
         id: 3,
-        content: 'Organization 3'
+        name: 'Organization 3',
+        title: 'organization-3'
       },
       {
         id: 4,
-        content: 'Organization 4'
+        name: 'Organization 4',
+        title: 'organization-4'
       }
     ])
 
-    const defaultOrganization = orgs.value.find(o => o.id === undefined)
-    console.log(defaultOrganization)
-    project.value.owner = defaultOrganization.content
+    project.value.owner = orgs.value.find(o => o.id === undefined)?.title || ''
+
+    watch(() => project.value.owner, (nextOwner) => {
+      project.value.organizationId = orgs.value.find(o => o.title === nextOwner)?.id
+    })
 
     const saveProject = () => {
       console.log('Project saved!', project.value)
