@@ -18,7 +18,7 @@
               <div class="col-12">
                 <q-input required dense filled label="Organization account name" v-model.trim="organization.name"
                   :rules="[val => !!val || 'Field is required',
-                    val => val.match('^[A-Za-z0-9 ]+$') || 'Field may only contain alphanumeric characters']"
+                    val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']"
                   :hint="'This will be the name of your account on ChangeLogs.Your URL will be: https://changelogs.info/'
                     + organization.title"/>
               </div>
@@ -27,7 +27,7 @@
               <div class="col-12">
                 <q-input required dense filled label="Contact email"
                   :rules="[val => !!val || 'Field is required',
-                    val => validEmail(val) || 'Invalid email address']"
+                    val => validateEmail(val) || 'Invalid email address']"
                   v-model.trim="organization.email" />
               </div>
             </div>
@@ -48,6 +48,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
+import { validateName, validateEmail } from 'components/validators'
 
 export default defineComponent({
   name: 'OrganizationEdit',
@@ -66,21 +67,17 @@ export default defineComponent({
     const saveStatus = computed(() => {
       return !(!!organization.value.name &&
         !!organization.value.email &&
-        validEmail(organization.value.email))
+        validateEmail(organization.value.email))
     })
 
     const saveOrganization = () => {
       console.log('Organization saved!', organization.value)
     }
 
-    const validEmail = (email: string) => {
-      var re = /^(([^<>()/[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(email)
-    }
-
     return {
       organization,
-      validEmail,
+      validateEmail,
+      validateName,
       saveStatus,
       saveOrganization
     }
