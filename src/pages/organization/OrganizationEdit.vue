@@ -49,6 +49,7 @@
 import { defineComponent, ref, computed, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
 import { validateName, validateEmail } from 'components/validators'
+import { titleGenerator } from 'components/TitleGenerator'
 
 export default defineComponent({
   name: 'OrganizationEdit',
@@ -60,8 +61,7 @@ export default defineComponent({
     })
 
     watch(() => organization.value.name, (nextName) => {
-      organization.value.title = nextName.replace(/\s\s+/g, ' ').trim()
-        .replace(/\s+/g, '-').toLowerCase()
+      organization.value.title = titleGenerator(nextName)
     })
 
     const saveStatus = computed(() => {
