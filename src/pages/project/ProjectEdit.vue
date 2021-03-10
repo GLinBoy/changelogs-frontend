@@ -11,7 +11,8 @@
               <p text-justify>A repository contains all project files, including the revision history. Already have a project repository elsewhere? Import a repository.</p>
             </div>
             <div class="col-12">
-              <div class="row q-col-gutter-md">
+              <q-form autocomplete="off"
+                @submit="saveProject" class="row q-col-gutter-md">
                 <div class="col-xs-12 col-md-4">
                   <q-select filled dense options-dense required
                     v-model="project.owner" emit-value
@@ -65,10 +66,11 @@
                   <q-toggle disable dense v-model="project.publicAccess" label="Public Access"/>
                 </div>
                 <div class="col-12">
-                  <q-btn dense color="primary" class="full-width"
-                    size="xl" label="Save" @click="saveProject"/>
+                  <q-btn dense color="primary" type="submit"
+                    class="full-width" :disable="saveStatus"
+                    size="xl" label="Save" />
                 </div>
-              </div>
+              </q-form>
             </div>
           </div>
         </div>
@@ -78,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from '@vue/composition-api'
+import { defineComponent, ref, watch, computed } from '@vue/composition-api'
 import { Project, Owner } from 'components/models'
 import { validateName, validateURL } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
@@ -139,6 +141,10 @@ export default defineComponent({
       project.value.organizationId = orgs.value.find(o => o.title === nextOwner)?.id
     })
 
+    const saveStatus = computed(() => {
+      return !(!!project.value.name && validateName(project.value.name))
+    })
+
     const saveProject = () => {
       console.log('Project saved!', project.value)
     }
@@ -148,6 +154,7 @@ export default defineComponent({
       validateName,
       validateURL,
       orgs,
+      saveStatus,
       saveProject
     }
   }
