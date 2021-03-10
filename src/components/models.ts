@@ -34,3 +34,46 @@ export interface Owner {
   name: string;
   title: string;
 }
+
+export enum Platform {
+  API,
+  WEB_APP,
+  ANDROID,
+  IOS,
+  CLIENT,
+  MOBILE,
+  WEAR,
+  CAR,
+  TV,
+  IOT
+}
+
+export interface ChangeLog {
+  id?: number;
+  versionNo: string;
+  buildVersion?: string;
+  releaseDate: Date;
+  publisher: string;
+  contact: string;
+  forceUpdate: boolean;
+  platform: Platform;
+  projectId: number;
+  isActive: boolean;
+}
+
+export enum ContentType {
+  ADDED,
+  CHANGED,
+  DEPRECATED,
+  REMOVED,
+  FIXED,
+  SECURITY
+}
+
+export interface ChangeLogContent {
+  id?: number;
+  changeLogId?: number;
+  content: string;
+  contentType: ContentType;
+  isActive: boolean;
+}
