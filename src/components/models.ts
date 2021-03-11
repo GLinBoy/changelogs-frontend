@@ -52,7 +52,7 @@ export interface ChangeLog {
   id?: number;
   versionNo: string;
   buildVersion?: string;
-  releaseDate: Date;
+  releaseDate: string;
   publisher: string;
   contact: string;
   forceUpdate: boolean;
