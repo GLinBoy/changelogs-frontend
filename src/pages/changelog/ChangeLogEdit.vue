@@ -83,11 +83,14 @@ import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/m
 export default defineComponent({
   name: 'ChangeLogEdit',
   setup () {
+    const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD')
+    const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm')
+
     const changelog = ref<ChangeLog>({
       id: undefined,
       versionNo: '',
       buildVersion: undefined,
-      releaseDate: new Date().toISOString(),
+      releaseDate: new Date(currentDate).toISOString(),
       publisher: 'anonymouse',
       contact: 'anonymouse@web.com',
       forceUpdate: false,
@@ -97,7 +100,7 @@ export default defineComponent({
     })
 
     const releaseDateTemp = ref<string>()
-    releaseDateTemp.value = date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm')
+    releaseDateTemp.value = currentDate + ' ' + currentTime
 
     watch(() => releaseDateTemp.value, (nextDate) => {
       changelog.value.releaseDate = new Date(nextDate).toISOString()
