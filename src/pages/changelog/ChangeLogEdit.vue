@@ -18,8 +18,8 @@
                 v-model.trim="changelog.buildVersion" label="Build Version" />
             </div>
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense input-class="text-center"
-                v-model.trim="releaseDateTemp">
+              <q-input filled dense required  label="Release date"
+                input-class="text-center" v-model.trim="releaseDateTemp">
                 <template v-slot:prepend>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -76,7 +76,7 @@
 
 <script lang="ts">
 import { date } from 'quasar'
-import { defineComponent, ref, computed } from '@vue/composition-api'
+import { defineComponent, ref, computed, watch } from '@vue/composition-api'
 import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
 
 export default defineComponent({
@@ -97,13 +97,20 @@ export default defineComponent({
 
     const releaseDateTemp = date.formatDate(Date.now(), 'YYYY-MM-DD') + ' 00:00'
 
-    const platforms = Object.keys(Platform).filter(k => typeof Platform[k as any] === 'number')
+    watch(() => releaseDateTemp, (nextDate) => {
+      console.log(nextDate)
+      changelog.value.releaseDate = new Date(nextDate).toISOString()
+    })
+
+    const types = Object.keys(ContentType)
+    const platforms = Object.keys(Platform)
 
     const saveStatus = computed(() => {
       return false
     })
 
     const saveChangeLog = () => {
+      console.log(releaseDateTemp)
       console.log('Project saved!', changelog.value)
     }
 
@@ -111,7 +118,7 @@ export default defineComponent({
       changelog,
       releaseDateTemp,
       platforms,
-      ContentType,
+      types,
       saveStatus,
       saveChangeLog
     }

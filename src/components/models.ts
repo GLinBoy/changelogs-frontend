@@ -36,16 +36,16 @@ export interface Owner {
 }
 
 export enum Platform {
-  API,
-  WEB_APP,
-  ANDROID,
-  IOS,
-  CLIENT,
-  MOBILE,
-  WEAR,
-  CAR,
-  TV,
-  IOT
+  API = 'API',
+  WEB_APP = 'WEB_APP',
+  ANDROID = 'ANDROID',
+  IOS = 'IOS',
+  CLIENT = 'CLIENT',
+  MOBILE = 'MOBILE',
+  WEAR = 'WEAR',
+  CAR = 'CAR',
+  TV = 'TV',
+  IOT = 'IOT'
 }
 
 export interface ChangeLog {
@@ -62,12 +62,12 @@ export interface ChangeLog {
 }
 
 export enum ContentType {
-  ADDED,
-  CHANGED,
-  DEPRECATED,
-  REMOVED,
-  FIXED,
-  SECURITY
+  ADDED = 'ADDED',
+  CHANGED = 'CHANGED',
+  DEPRECATED = 'DEPRECATED',
+  REMOVED = 'REMOVED',
+  FIXED = 'FIXED',
+  SECURITY = 'SECURITY'
 }
 
 export interface ChangeLogContent {
