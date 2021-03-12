@@ -18,8 +18,9 @@
                 v-model.trim="changelog.buildVersion" label="Build Version" />
             </div>
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense required  label="Release date"
-                input-class="text-center" v-model.trim="releaseDateTemp">
+              <q-input filled dense required label="Release date"
+                input-class="text-center" v-model.trim="releaseDateTemp"
+                :hint="releaseDateHint">
                 <template v-slot:prepend>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -95,11 +96,14 @@ export default defineComponent({
       isActive: true
     })
 
-    const releaseDateTemp = date.formatDate(Date.now(), 'YYYY-MM-DD') + ' 00:00'
+    const releaseDateTemp = ref<string>()
+    releaseDateTemp.value = date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm')
 
-    watch(() => releaseDateTemp, (nextDate) => {
-      console.log(nextDate)
+    watch(() => releaseDateTemp.value, (nextDate) => {
       changelog.value.releaseDate = new Date(nextDate).toISOString()
+    })
+    const releaseDateHint = computed(() => {
+      return new Date(changelog.value.releaseDate).toUTCString()
     })
 
     const types = Object.keys(ContentType)
@@ -110,13 +114,13 @@ export default defineComponent({
     })
 
     const saveChangeLog = () => {
-      console.log(releaseDateTemp)
       console.log('Project saved!', changelog.value)
     }
 
     return {
       changelog,
       releaseDateTemp,
+      releaseDateHint,
       platforms,
       types,
       saveStatus,
