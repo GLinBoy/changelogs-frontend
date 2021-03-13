@@ -70,6 +70,27 @@
               </div>
             </div>
             <div class="col-12">
+              <div class="row">
+                <div class="col-12" style="max-width: 100%">
+                  <q-card v-show="availiableContentTab.length > 0">
+                    <q-tabs dense inline-label outside-arrows mobile-arrows swipeable shrink stretch
+                      align="justify" v-model="contentTab" class="bg-primary text-white shadow-2 fit col">
+                      <q-tab v-for="type in availiableContentTab" :key="type" :name="type" :label="type" />
+                    </q-tabs>
+
+                    <q-separator />
+
+                    <q-tab-panels v-model="contentTab" animated>
+                      <q-tab-panel v-for="type in availiableContentTab" :key="type" :name="type">
+                        <div class="text-h6">{{type}}</div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </q-tab-panel>
+                    </q-tab-panels>
+                  </q-card>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
               <q-btn dense color="primary" type="submit"
                 class="full-width" :disable="saveStatus"
                 size="xl" label="Save" />
@@ -125,9 +146,23 @@ export default defineComponent({
 
     const typesState = ref<boolean[]>([])
 
-    const typesStateChange = (type, state) => {
-      console.log(type, state)
+    const typesStateChange = (type: ContentType, state: boolean) => {
+      if (state) {
+        availiableContentTab.value.push(type)
+        contentTab.value = type
+      } else {
+        availiableContentTab.value = availiableContentTab.value.filter( c => c !== type)
+        if (availiableContentTab.value.length > 0) {
+          contentTab.value = availiableContentTab.value[0]
+        } else {
+          contentTab.value = ''
+        }
+      }
     }
+
+    const contentTab = ref<string>()
+
+    const availiableContentTab = ref<string[]>([])
 
     const saveStatus = computed(() => {
       return false
@@ -145,6 +180,8 @@ export default defineComponent({
       types,
       typesState,
       typesStateChange,
+      contentTab,
+      availiableContentTab,
       saveStatus,
       saveChangeLog
     }
