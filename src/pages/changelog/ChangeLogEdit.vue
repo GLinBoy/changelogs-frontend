@@ -62,11 +62,18 @@
               <q-toggle v-model="changelog.forceUpdate" label="Force Update" />
             </div>
             <div class="col-12">
+              <div class="row">
+                <div v-for="(type, index) in types" :key="type" class="col-xs-4 col-md-2">
+                  <q-checkbox v-model="typesState[index]" :label="type" keep-color
+                    @input="v=>{typesStateChange(type, v)}"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
               <q-btn dense color="primary" type="submit"
                 class="full-width" :disable="saveStatus"
                 size="xl" label="Save" />
             </div>
-
           </q-form>
           </div>
         </div>
@@ -77,8 +84,8 @@
 
 <script lang="ts">
 import { date } from 'quasar'
-import { defineComponent, ref, computed, watch } from '@vue/composition-api'
-import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
+import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
+import { ChangeLog, Platform, ContentType } from 'components/models'
 
 export default defineComponent({
   name: 'ChangeLogEdit',
@@ -86,7 +93,7 @@ export default defineComponent({
     const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD')
     const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm')
 
-    const changelog = ref<ChangeLog>({
+    const changelog = reactive<ChangeLog>({
       id: undefined,
       versionNo: '',
       buildVersion: undefined,
@@ -103,21 +110,31 @@ export default defineComponent({
     releaseDateTemp.value = currentDate + ' ' + currentTime
 
     watch(() => releaseDateTemp.value, (nextDate) => {
-      changelog.value.releaseDate = new Date(nextDate).toISOString()
+      if (nextDate) {
+        changelog.releaseDate = new Date(nextDate).toISOString()
+      } else {
+        changelog.releaseDate = new Date(currentDate).toISOString()
+      }
     })
     const releaseDateHint = computed(() => {
-      return new Date(changelog.value.releaseDate).toUTCString()
+      return new Date(changelog.releaseDate).toUTCString()
     })
 
     const types = Object.keys(ContentType)
     const platforms = Object.keys(Platform)
+
+    const typesState = ref<boolean[]>([])
+
+    const typesStateChange = (type, state) => {
+      console.log(type, state)
+    }
 
     const saveStatus = computed(() => {
       return false
     })
 
     const saveChangeLog = () => {
-      console.log('Project saved!', changelog.value)
+      console.log('Project saved!', changelog)
     }
 
     return {
@@ -126,6 +143,8 @@ export default defineComponent({
       releaseDateHint,
       platforms,
       types,
+      typesState,
+      typesStateChange,
       saveStatus,
       saveChangeLog
     }
