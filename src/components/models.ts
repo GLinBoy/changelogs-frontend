@@ -59,6 +59,7 @@ export interface ChangeLog {
   platform: Platform;
   projectId: number;
   isActive: boolean;
+  contents: ChangeLogContent[];
 }
 
 export enum ContentType {

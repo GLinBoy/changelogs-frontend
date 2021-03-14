@@ -72,18 +72,26 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12" style="max-width: 100%">
-                  <q-card v-show="availiableContentTab.length > 0">
+                  <q-card v-show="changelog.contents.length > 0">
                     <q-tabs dense inline-label outside-arrows mobile-arrows swipeable shrink stretch
                       align="justify" v-model="contentTab" class="bg-primary text-white shadow-2 fit col">
-                      <q-tab v-for="type in availiableContentTab" :key="type" :name="type" :label="type" />
+                      <q-tab v-for="content in changelog.contents"
+                        :key="content.contentType"
+                        :name="content.contentType"
+                        :label="content.contentType"
+                        :alert="!!content.content ? 'green' : 'red'" />
                     </q-tabs>
 
                     <q-separator />
 
                     <q-tab-panels v-model="contentTab" animated>
-                      <q-tab-panel v-for="type in availiableContentTab" :key="type" :name="type">
-                        <div class="text-h6">{{type}}</div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      <q-tab-panel v-for="content in changelog.contents"
+                        class="q-pa-xs"
+                        :key="content.contentType"
+                        :name="content.contentType">
+                        <q-input filled dense required
+                          v-model.trim="content.content" type="textarea"
+                          :hint="content.contentType + ': Add each change in new line'" />
                       </q-tab-panel>
                     </q-tab-panels>
                   </q-card>
@@ -106,7 +114,7 @@
 <script lang="ts">
 import { date } from 'quasar'
 import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
-import { ChangeLog, Platform, ContentType } from 'components/models'
+import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
 
 export default defineComponent({
   name: 'ChangeLogEdit',
@@ -124,7 +132,8 @@ export default defineComponent({
       forceUpdate: false,
       platform: Platform[Platform.API],
       projectId: 0,
-      isActive: true
+      isActive: true,
+      contents: []
     })
 
     const releaseDateTemp = ref<string>()
@@ -148,12 +157,18 @@ export default defineComponent({
 
     const typesStateChange = (type: ContentType, state: boolean) => {
       if (state) {
-        availiableContentTab.value.push(type)
+        changelog.contents.push(reactive<ChangeLogContent>({
+          id: undefined,
+          changeLogId: undefined,
+          content: '',
+          contentType: ContentType[type],
+          isActive: true
+        }))
         contentTab.value = type
       } else {
-        availiableContentTab.value = availiableContentTab.value.filter( c => c !== type)
-        if (availiableContentTab.value.length > 0) {
-          contentTab.value = availiableContentTab.value[0]
+        changelog.contents = changelog.contents.filter(c => c.contentType !== type)
+        if (changelog.contents.length > 0) {
+          contentTab.value = changelog.contents[0].contentType
         } else {
           contentTab.value = ''
         }
@@ -161,8 +176,6 @@ export default defineComponent({
     }
 
     const contentTab = ref<string>()
-
-    const availiableContentTab = ref<string[]>([])
 
     const saveStatus = computed(() => {
       return false
@@ -181,7 +194,6 @@ export default defineComponent({
       typesState,
       typesStateChange,
       contentTab,
-      availiableContentTab,
       saveStatus,
       saveChangeLog
     }
