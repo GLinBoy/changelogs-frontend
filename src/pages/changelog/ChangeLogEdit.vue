@@ -181,7 +181,7 @@ export default defineComponent({
       return changelog.versionNo && changelog.releaseDate &&
         changelog.publisher && changelog.contact &&
         (changelog.contents.length > 0 &&
-          changelog.contents.every(c => c.content === null || c.content === ''))
+          changelog.contents.filter(c => c.content === null || c.content === '').length > 0)
     })
 
     const saveChangeLog = () => {
