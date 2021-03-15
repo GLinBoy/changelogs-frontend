@@ -11,11 +11,15 @@
               @submit="saveChangeLog" class="row q-col-gutter-md">
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required
-                v-model.trim="changelog.versionNo" label="Version No." />
+                v-model.trim="changelog.versionNo" label="Version No."
+                :rules="[val => validatePathVariable(val) ||
+                  'May only contain alphanumeric characters, dash, underline and dot']" />
             </div>
             <div class="col-xs-12 col-md-6">
               <q-input filled dense
-                v-model.trim="changelog.buildVersion" label="Build Version" />
+                v-model.trim="changelog.buildVersion" label="Build Version"
+                :rules="[val => validatePathVariable(val, false) ||
+                  'May only contain alphanumeric characters, dash, underline and dot']" />
             </div>
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required label="Release date"
@@ -115,6 +119,7 @@
 import { date } from 'quasar'
 import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
 import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
+import { validatePathVariable } from 'components/validators'
 
 export default defineComponent({
   name: 'ChangeLogEdit',
@@ -189,6 +194,7 @@ export default defineComponent({
     }
 
     return {
+      validatePathVariable,
       changelog,
       releaseDateTemp,
       releaseDateHint,
