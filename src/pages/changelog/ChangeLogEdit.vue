@@ -12,7 +12,8 @@
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required
                 v-model.trim="changelog.versionNo" label="Version No."
-                :rules="[val => validatePathVariable(val) ||
+                :rules="[val => !!val || 'Field is required',
+                  val => validatePathVariable(val) ||
                   'May only contain alphanumeric characters, dash, underline and dot']" />
             </div>
             <div class="col-xs-12 col-md-6">
@@ -24,7 +25,8 @@
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required label="Release date"
                 input-class="text-center" v-model.trim="releaseDateTemp"
-                :hint="releaseDateHint">
+                :hint="releaseDateHint"
+                :rules="[val => !!val || 'Field is required']">
                 <template v-slot:prepend>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -56,11 +58,14 @@
             </div>
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required
-                v-model.trim="changelog.publisher" label="Publisher" />
+                v-model.trim="changelog.publisher" label="Publisher"
+                  :rules="[val => !!val || 'Field is required']" />
             </div>
             <div class="col-xs-12 col-md-6">
               <q-input filled dense required
-                v-model.trim="changelog.contact" label="Contact" />
+                v-model.trim="changelog.contact" label="Contact"
+                  :rules="[val => !!val || 'Field is required',
+                    val => validateEmail(val) || 'Invalid email address']" />
             </div>
             <div class="col-12">
               <q-toggle v-model="changelog.forceUpdate" label="Force Update" />
@@ -119,7 +124,7 @@
 import { date } from 'quasar'
 import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
 import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
-import { validatePathVariable } from 'components/validators'
+import { validatePathVariable, validateEmail } from 'components/validators'
 
 export default defineComponent({
   name: 'ChangeLogEdit',
@@ -195,6 +200,7 @@ export default defineComponent({
 
     return {
       validatePathVariable,
+      validateEmail,
       changelog,
       releaseDateTemp,
       releaseDateHint,
