@@ -46,14 +46,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, watch } from '@vue/composition-api'
+import { defineComponent, reactive, ref, computed, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
 import { validateName, validateEmail } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
 
 export default defineComponent({
   name: 'OrganizationEdit',
-  setup () {
+  setup (_, context) {
+    const axios = context.root.$axios
+
+    const isWaiting = ref<boolean>(false);
+
     const organization = reactive<Organization>({
       name: '',
       title: '',
@@ -67,11 +71,27 @@ export default defineComponent({
     const saveStatus = computed(() => {
       return !(!!organization.name &&
         !!organization.email &&
-        validateEmail(organization.email))
+        validateEmail(organization.email)) || isWaiting.value
     })
 
     const saveOrganization = () => {
-      console.log('Organization saved!', organization)
+      isWaiting.value = true
+      axios.post('organization', organization)
+        .then(function (response) {
+          console.log(response)
+          context.root.$router.push({ path: '/organization/' + response.data.title })
+        })
+        .catch(function (error) {
+          console.log(error)
+          context.root.$q.notify({
+            progress: true,
+            message: error.response.data.message,
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+          isWaiting.value = false
+        })
     }
 
     return {
