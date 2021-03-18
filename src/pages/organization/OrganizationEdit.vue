@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from '@vue/composition-api'
+import { defineComponent, reactive, computed, watch } from '@vue/composition-api'
 import { Organization } from 'components/models'
 import { validateName, validateEmail } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
@@ -54,24 +54,24 @@ import { titleGenerator } from 'components/TitleGenerator'
 export default defineComponent({
   name: 'OrganizationEdit',
   setup () {
-    const organization = ref<Organization>({
+    const organization = reactive<Organization>({
       name: '',
       title: '',
       email: ''
     })
 
-    watch(() => organization.value.name, (nextName) => {
-      organization.value.title = titleGenerator(nextName)
+    watch(() => organization.name, (nextName) => {
+      organization.title = titleGenerator(nextName)
     })
 
     const saveStatus = computed(() => {
-      return !(!!organization.value.name &&
-        !!organization.value.email &&
-        validateEmail(organization.value.email))
+      return !(!!organization.name &&
+        !!organization.email &&
+        validateEmail(organization.email))
     })
 
     const saveOrganization = () => {
-      console.log('Organization saved!', organization.value)
+      console.log('Organization saved!', organization)
     }
 
     return {
