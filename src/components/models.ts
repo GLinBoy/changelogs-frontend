@@ -7,6 +7,12 @@ export interface Meta {
   totalCount: number;
 }
 
+export interface CommonError {
+  title?: string;
+  status?: number;
+  detail?: string;
+}
+
 export interface Organization {
   id?: number;
   name: string;
