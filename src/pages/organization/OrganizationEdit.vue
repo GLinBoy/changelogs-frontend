@@ -47,16 +47,17 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, watch } from '@vue/composition-api'
-import { Organization } from 'components/models'
+import { Organization, CommonError } from 'components/models'
 import { validateName, validateEmail } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
+import { AxiosError } from 'axios'
 
 export default defineComponent({
   name: 'OrganizationEdit',
   setup (_, context) {
     const axios = context.root.$axios
 
-    const isWaiting = ref<boolean>(false);
+    const isWaiting = ref<boolean>(false)
 
     const organization = reactive<Organization>({
       name: '',
@@ -76,20 +77,22 @@ export default defineComponent({
 
     const saveOrganization = () => {
       isWaiting.value = true
-      axios.post('organization', organization)
-        .then(function (response) {
-          console.log(response)
-          context.root.$router.push({ path: '/organization/' + response.data.title })
+      axios.post<Organization>('organization', organization)
+        .then(async (response) => {
+          await context.root.$router.push({ path: '/organization/' + response.data.title })
         })
-        .catch(function (error) {
-          console.log(error)
-          context.root.$q.notify({
-            progress: true,
-            message: error.response.data.message,
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
+        .catch((error: AxiosError) => {
+          if (error.response && error.response.data) {
+            const errorData = <CommonError> error.response.data
+            context.root.$q.notify({
+              progress: true,
+              message: errorData.title,
+              caption: errorData.detail,
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          }
           isWaiting.value = false
         })
     }
