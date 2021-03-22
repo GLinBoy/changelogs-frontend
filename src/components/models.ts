@@ -11,6 +11,12 @@ export interface CommonError {
   title?: string;
   status?: number;
   detail?: string;
+  violations?: Violation[];
+}
+
+export interface Violation {
+  field?: string;
+  message?: string;
 }
 
 export interface Organization {
