@@ -16,8 +16,12 @@
             </div>
             <div class="row q-pb-lg">
               <div class="col-12">
-                <q-input required dense filled label="Organization account name" v-model.trim="organization.name"
+                <q-input required dense filled
+                  maxlength=32 counter
+                  label="Organization account name"
+                  v-model.trim="organization.name"
                   :rules="[val => !!val || 'Field is required',
+                    val => val.length >= 4 || 'Please use between 4-32 characters',
                     val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']"
                   :hint="'This will be the name of your account on ChangeLogs.Your URL will be: https://changelogs.info/'
                     + organization.title"/>
@@ -26,7 +30,9 @@
             <div class="row q-pb-lg">
               <div class="col-12">
                 <q-input required dense filled label="Contact email"
+                  maxlength=64 counter
                   :rules="[val => !!val || 'Field is required',
+                    val => val.length >= 8 || 'Please use between 8-64 characters',
                     val => validateEmail(val) || 'Invalid email address']"
                   v-model.trim="organization.email" />
               </div>
