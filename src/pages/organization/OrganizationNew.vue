@@ -59,7 +59,7 @@ import { titleGenerator } from 'components/TitleGenerator'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
-  name: 'OrganizationEdit',
+  name: 'OrganizatioNew',
   setup (_, context) {
     const axios = context.root.$axios
 

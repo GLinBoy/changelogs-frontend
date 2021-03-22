@@ -7,7 +7,15 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', name: 'Home', component: () => import('pages/Index.vue') },
-      { path: 'organization/new', name: 'OrganizationNew', component: () => import('pages/organization/OrganizationEdit.vue') },
+      {
+        path: 'organization',
+        component: () => import('pages/organization/OrganizationPage.vue'),
+        children: [
+          { path: '', name: 'Organizations', component: () => import('pages/organization/Organizations.vue') },
+          { path: 'new', name: 'OrganizationNew', component: () => import('pages/organization/OrganizationNew.vue') },
+          { path: ':orgName', name: 'Organization', component: () => import('pages/organization/Organization.vue') }
+        ]
+      },
       { path: 'project/new', name: 'ProjectNew', component: () => import('pages/project/ProjectEdit.vue') },
       { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogEdit.vue') },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
@@ -20,8 +28,8 @@ const routes: RouteConfig[] = [
         component: () => import('pages/profile/Profile.vue'),
         children: [
           { path: 'settings', name: 'ProfileEdit', component: () => import('pages/profile/ProfileEdit.vue') },
-          { path: 'projects', name: 'Projects', component: () => import('pages/project/Projects.vue') },
-          { path: 'organizations', name: 'Organizations', component: () => import('pages/organization/Organizations.vue') }
+          { path: 'projects', name: 'UserProjects', component: () => import('pages/project/Projects.vue') },
+          { path: 'organizations', name: 'UserOrganizations', component: () => import('pages/organization/Organizations.vue') }
         ]
       },
       {
