@@ -10,7 +10,7 @@
                   <q-item clickable class="col" :to="'/organization/' + org.title">
                     <q-item-section avatar>
                       <q-avatar>
-                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        <img src="/images/company.svg">
                       </q-avatar>
                     </q-item-section>
 
@@ -23,8 +23,8 @@
                   </q-item>
 
                   <q-card-actions vertical>
-                    <q-btn flat round color="red" icon="favorite" />
-                    <q-btn flat round color="teal" icon="bookmark" />
+                    <q-btn flat round color="blue" icon="language" />
+                    <q-btn flat round color="teal" icon="alternate_email" />
                   </q-card-actions>
                 </q-card-section>
               </q-card>
