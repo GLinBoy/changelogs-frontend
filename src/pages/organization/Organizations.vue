@@ -29,6 +29,12 @@
                 </q-card-section>
               </q-card>
             </div>
+            <div class="col-12">
+              <div class="row q-col-gutter-md">
+                <div class="col-6 text-right"><q-btn outline color="primary" label="Back" icon="navigate_before" /></div>
+                <div class="col-6"><q-btn outline color="primary" label="Next" icon-right="navigate_next" /></div>
+              </div>
+            </div>
           </div>
         </div>
       </q-page>
@@ -50,8 +56,8 @@ export default defineComponent({
 
     axios.get<Organization[]>('organization?sort=createdOn,desc')
       .then(response => {
+        console.log(response.headers)
         organizations.value = response.data
-        console.log(organizations)
       })
       .catch((error: AxiosError) => {
         console.error(error)
