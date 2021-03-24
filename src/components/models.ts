@@ -90,3 +90,19 @@ export interface ChangeLogContent {
   contentType: ContentType;
   isActive: boolean;
 }
+
+export interface Pagination {
+  page?: number;
+  size?: number;
+  sort?: Sort[];
+}
+
+export interface Sort {
+  field: string;
+  direction?: SortDirection;
+}
+
+export enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
