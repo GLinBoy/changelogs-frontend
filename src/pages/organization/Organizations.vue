@@ -29,10 +29,18 @@
                 </q-card-section>
               </q-card>
             </div>
-            <div class="col-12">
+            <div class="col-12 q-pa-lg">
               <div class="row q-col-gutter-md">
-                <div class="col-6 text-right"><q-btn outline color="primary" label="Back" icon="navigate_before" /></div>
-                <div class="col-6"><q-btn outline color="primary" label="Next" icon-right="navigate_next" /></div>
+                <div class="col-6 text-right">
+                  <q-btn outline color="primary"
+                    @click="backPage" :disable="pagination.page <= 0"
+                    label="Back" icon="navigate_before" />
+                </div>
+                <div class="col-6">
+                  <q-btn outline color="primary"
+                    @click="nextPage" :disable="!((pagination.page + 1) * pagination.size <= totalCount)"
+                    label="Next" icon-right="navigate_next" />
+                </div>
               </div>
             </div>
           </div>
@@ -43,8 +51,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
-import { Organization, CommonError } from 'components/models'
+import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
+import { Organization, CommonError, Pagination, SortDirection } from 'components/models'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
@@ -54,36 +62,71 @@ export default defineComponent({
 
     const organizations = ref<Organization[]>([])
 
-    axios.get<Organization[]>('organization?sort=createdOn,desc')
-      .then(response => {
-        console.log(response.headers)
-        organizations.value = response.data
-      })
-      .catch((error: AxiosError) => {
-        console.error(error)
-        if (error.response && error.response.data) {
-          const errorData = <CommonError> error.response.data
-          context.root.$q.notify({
-            progress: true,
-            message: errorData.title,
-            caption: errorData.detail,
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        } else {
-          context.root.$q.notify({
-            progress: true,
-            message: 'Network Error',
-            caption: 'Can\'t access the APIs, please check your network, ant try again',
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        }
-      })
+    const totalCount = ref<number>(0)
+
+    const pagination = reactive<Pagination>({
+      page: 0,
+      size: 20,
+      sort: [{
+        field: 'createdOn',
+        direction: SortDirection.DESC
+      }]
+    })
+
+    const loadData = () => {
+      const urlTemplate = `organization?page=${pagination.page}&
+        size=${pagination.size}&
+        sort=${Array.prototype.map
+          .call(pagination.sort, function(s) { return `${s.field},${s.direction}` })
+          .join("&sort=")}`
+      axios.get<Organization[]>(urlTemplate)
+        .then(response => {
+          organizations.value = response.data
+          totalCount.value = <number> response.headers['x-total-count']
+        })
+        .catch((error: AxiosError) => {
+          console.error(error)
+          if (error.response && error.response.data) {
+            const errorData = <CommonError> error.response.data
+            context.root.$q.notify({
+              progress: true,
+              message: errorData.title,
+              caption: errorData.detail,
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          } else {
+            context.root.$q.notify({
+              progress: true,
+              message: 'Network Error',
+              caption: 'Can\'t access the APIs, please check your network, ant try again',
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          }
+        })
+    }
+
+    const nextPage = () => {
+      pagination.page = pagination.page + 1
+      loadData()
+    }
+
+    const backPage = () => {
+      pagination.page = pagination.page - 1
+      loadData()
+    }
+
+    onMounted(() => loadData())
+
     return {
-      organizations
+      organizations,
+      pagination,
+      totalCount,
+      nextPage,
+      backPage
     }
   }
 })
