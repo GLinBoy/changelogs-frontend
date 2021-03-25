@@ -23,7 +23,8 @@
                   </q-item>
 
                   <q-card-actions vertical>
-                    <q-btn flat round color="green" icon="bookmark_add" />
+                    <q-btn flat round color="green" icon="bookmark_add"
+                      @click="subscribeProject(project.title)"/>
                     <q-btn flat round color="blue" icon="language"
                       type="a" :href="project.website" target="_blank" />
                   </q-card-actions>
@@ -121,6 +122,10 @@ export default defineComponent({
       loadData()
     }
 
+    const subscribeProject = (title) => {
+      console.log(title)
+    }
+
     onMounted(() => loadData())
 
     return {
@@ -128,7 +133,8 @@ export default defineComponent({
       pagination,
       totalCount,
       nextPage,
-      backPage
+      backPage,
+      subscribeProject
     }
   }
 })
