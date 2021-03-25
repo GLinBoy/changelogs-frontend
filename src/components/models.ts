@@ -92,14 +92,14 @@ export interface ChangeLogContent {
 }
 
 export interface Pagination {
-  page?: number;
-  size?: number;
-  sort?: Sort[];
+  page: number;
+  size: number;
+  sort: Sort[];
 }
 
 export interface Sort {
   field: string;
-  direction?: SortDirection;
+  direction: SortDirection;
 }
 
 export enum SortDirection {
