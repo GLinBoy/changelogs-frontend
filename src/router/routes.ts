@@ -13,10 +13,18 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'Organizations', component: () => import('pages/organization/Organizations.vue') },
           { path: 'new', name: 'OrganizationNew', component: () => import('pages/organization/OrganizationNew.vue') },
-          { path: ':orgName', name: 'Organization', component: () => import('pages/organization/Organization.vue') }
+          { path: ':orgTitle', name: 'Organization', component: () => import('pages/organization/Organization.vue') }
         ]
       },
-      { path: 'project/new', name: 'ProjectNew', component: () => import('pages/project/ProjectEdit.vue') },
+      {
+        path: 'project',
+        component: () => import('pages/project/ProjectPage.vue'),
+        children: [
+          { path: '', name: 'Projects', component: () => import('pages/project/Projects.vue') },
+          { path: 'new', name: 'ProjectNew', component: () => import('pages/project/ProjectNew.vue') },
+          { path: ':projectTitle', name: 'Project', component: () => import('pages/project/Project.vue') }
+        ]
+      },
       { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogEdit.vue') },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
       { path: 'notifications', name: 'Notifications', component: () => import('pages/Notifications.vue') },
