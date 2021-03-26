@@ -18,7 +18,7 @@
                     v-model="project.owner" emit-value
                     option-value="title"
                     option-label="name"
-                    :options="orgs" label="Owner" />
+                    :options="owners" label="Owner" />
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <q-input filled dense required
@@ -109,7 +109,7 @@ export default defineComponent({
       project.value.title = titleGenerator(nextName)
     })
 
-    const orgs = ref<Owner[]>([
+    const owners = ref<Owner[]>([
       {
         id: undefined,
         name: 'anonymouse',
@@ -119,7 +119,7 @@ export default defineComponent({
 
     axios.get<Owner>('organization/owner')
       .then( response => {
-        orgs.value = orgs.value.concat(response.data)
+        owners.value = owners.value.concat(response.data)
       })
       .catch((error: AxiosError) => {
         console.error(error)
@@ -145,10 +145,10 @@ export default defineComponent({
         }
       })
 
-    project.value.owner = orgs.value.find(o => o.id === undefined)?.title || ''
+    project.value.owner = owners.value.find(o => o.id === undefined)?.title || ''
 
     watch(() => project.value.owner, (nextOwner) => {
-      project.value.organizationId = orgs.value.find(o => o.title === nextOwner)?.id
+      project.value.organizationId = owners.value.find(o => o.title === nextOwner)?.id
     })
 
     const saveStatus = computed(() => {
@@ -163,7 +163,7 @@ export default defineComponent({
       project,
       validateName,
       validateURL,
-      orgs,
+      owners,
       saveStatus,
       saveProject
     }
