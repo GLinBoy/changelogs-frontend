@@ -26,8 +26,7 @@
                     :rules="[val => !!val || 'Field is required',
                     val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']">
                     <template v-slot:hint>
-                      {{'Your project URL will be: https://changelogs.info/'
-                        + project.owner + '/' + project.title }}
+                      {{ `Your project URL will be: https://changelogs.info/${project.owner}/${project.title}` }}
                     </template>
                   </q-input>
                 </div>
