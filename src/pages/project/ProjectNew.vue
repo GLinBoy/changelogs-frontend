@@ -83,10 +83,13 @@ import { defineComponent, ref, watch, computed } from '@vue/composition-api'
 import { Project, Owner } from 'components/models'
 import { validateName, validateURL } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
+import { AxiosError } from 'axios'
 
 export default defineComponent({
   name: 'ProjectEdit',
-  setup () {
+  setup (_, context) {
+    const axios = context.root.$axios
+
     const project = ref<Project>({
       id: undefined,
       isActive: true,
@@ -111,28 +114,36 @@ export default defineComponent({
         id: undefined,
         name: 'anonymouse',
         title: 'anonymouse'
-      },
-      {
-        id: 1,
-        name: 'Organization 1',
-        title: 'organization-1'
-      },
-      {
-        id: 2,
-        name: 'Organization 2',
-        title: 'organization-2'
-      },
-      {
-        id: 3,
-        name: 'Organization 3',
-        title: 'organization-3'
-      },
-      {
-        id: 4,
-        name: 'Organization 4',
-        title: 'organization-4'
       }
     ])
+
+    axios.get<Owner>('organization/owner')
+      .then( response => {
+        orgs.value = orgs.value.concat(response.data)
+      })
+      .catch((error: AxiosError) => {
+        console.error(error)
+        if (error.response && error.response.data) {
+          const errorData = <CommonError> error.response.data
+          context.root.$q.notify({
+            progress: true,
+            message: errorData.title,
+            caption: errorData.detail,
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+        } else {
+          context.root.$q.notify({
+            progress: true,
+            message: 'Network Error',
+            caption: 'Can\'t access the APIs, please check your network, ant try again',
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+        }
+      })
 
     project.value.owner = orgs.value.find(o => o.id === undefined)?.title || ''
 
