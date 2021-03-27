@@ -118,7 +118,7 @@ export default defineComponent({
     ])
 
     axios.get<Owner>('organization/owner')
-      .then( response => {
+      .then(response => {
         owners.value = owners.value.concat(response.data)
       })
       .catch((error: AxiosError) => {
@@ -156,9 +156,8 @@ export default defineComponent({
     })
 
     const saveProject = () => {
-      axios.post('project', project)
-        .then( async response => {
-          console.log(response.data)
+      axios.post<Project>('project', project)
+        .then(async response => {
           await context.root.$router.push({ path: `/project/${response.data.title}` })
         })
         .catch((error: AxiosError) => {
