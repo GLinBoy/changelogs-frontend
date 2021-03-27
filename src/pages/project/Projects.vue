@@ -26,6 +26,7 @@
                     <q-btn flat round color="green" icon="bookmark_add"
                       @click="subscribeProject(project.title)"/>
                     <q-btn flat round color="blue" icon="language"
+                      :disable="project.website ? false : true"
                       type="a" :href="project.website" target="_blank" />
                   </q-card-actions>
                 </q-card-section>
@@ -83,7 +84,6 @@ export default defineComponent({
           .join('&sort=')}`
       axios.get<Project[]>(urlTemplate)
         .then(response => {
-          console.log(response.data)
           projects.value = response.data
           totalCount.value = <number> response.headers['x-total-count']
         })
