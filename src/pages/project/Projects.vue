@@ -10,7 +10,7 @@
                   <q-item clickable class="col" :to="`${project.owner}/${project.title}`">
                     <q-item-section avatar>
                       <q-avatar>
-                        <img :src="project.logo">
+                        <img :src="project.logo ? project.logo : '/images/project-management.svg'">
                       </q-avatar>
                     </q-item-section>
 
