@@ -35,9 +35,9 @@
                     v-model.trim="project.about" label="About your project" />
                 </div>
                 <div class="col-12">
-                  <q-file filled dense clearable counter bottom-slots
+                  <q-file filled dense clearable counter bottom-slots nullable
                     accept="image/*" max-file-size="500000"
-                    v-model="project.logo" label="Project logo">
+                    v-model="projectLogo" label="Project logo">
                     <template v-slot:prepend>
                       <q-icon name="attach_file" />
                     </template>
@@ -90,6 +90,8 @@ export default defineComponent({
   setup (_, context) {
     const axios = context.root.$axios
 
+    const projectLogo =  ref<string>()
+
     const project = reactive<Project>({
       id: undefined,
       isActive: true,
@@ -107,6 +109,18 @@ export default defineComponent({
 
     watch(() => project.name, (nextName) => {
       project.title = titleGenerator(nextName)
+    })
+
+    watch(() => projectLogo.value, (newLogo) => {
+      if (newLogo) {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          project.logo = event.target.result
+        }
+        reader.readAsDataURL(newLogo)
+      } else {
+        project.logo = null
+      }
     })
 
     const owners = ref<Owner[]>([
@@ -187,6 +201,7 @@ export default defineComponent({
 
     return {
       project,
+      projectLogo,
       validateName,
       validateURL,
       owners,
