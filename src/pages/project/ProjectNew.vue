@@ -79,8 +79,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from '@vue/composition-api'
-import { Project, Owner } from 'components/models'
+import { defineComponent, ref, reactive, watch, computed } from '@vue/composition-api'
+import { Project, Owner, CommonError } from 'components/models'
 import { validateName, validateURL } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
 import { AxiosError } from 'axios'
@@ -90,7 +90,7 @@ export default defineComponent({
   setup (_, context) {
     const axios = context.root.$axios
 
-    const project = ref<Project>({
+    const project = reactive<Project>({
       id: undefined,
       isActive: true,
       name: '',
@@ -105,8 +105,8 @@ export default defineComponent({
       organizationId: undefined
     })
 
-    watch(() => project.value.name, (nextName) => {
-      project.value.title = titleGenerator(nextName)
+    watch(() => project.name, (nextName) => {
+      project.title = titleGenerator(nextName)
     })
 
     const owners = ref<Owner[]>([
@@ -145,18 +145,45 @@ export default defineComponent({
         }
       })
 
-    project.value.owner = owners.value.find(o => o.id === undefined)?.title || ''
+    project.owner = owners.value.find(o => o.id === undefined)?.title || ''
 
-    watch(() => project.value.owner, (nextOwner) => {
-      project.value.organizationId = owners.value.find(o => o.title === nextOwner)?.id
+    watch(() => project.owner, (nextOwner) => {
+      project.organizationId = owners.value.find(o => o.title === nextOwner)?.id
     })
 
     const saveStatus = computed(() => {
-      return !(!!project.value.name && validateName(project.value.name))
+      return !(!!project.name && validateName(project.name))
     })
 
     const saveProject = () => {
-      console.log('Project saved!', project.value)
+      axios.post('project', project)
+        .then( async response => {
+          console.log(response.data)
+          await context.root.$router.push({ path: `/project/${response.data.title}` })
+        })
+        .catch((error: AxiosError) => {
+          console.error(error)
+          if (error.response && error.response.data) {
+            const errorData = <CommonError> error.response.data
+            context.root.$q.notify({
+              progress: true,
+              message: errorData.title,
+              caption: errorData.detail,
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          } else {
+            context.root.$q.notify({
+              progress: true,
+              message: 'Network Error',
+              caption: 'Can\'t access the APIs, please check your network, ant try again',
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          }
+        })
     }
 
     return {
