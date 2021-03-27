@@ -74,9 +74,7 @@ export default defineComponent({
     })
 
     const loadData = () => {
-      const urlTemplate = `organization?page=${pagination.page || 0}&
-        size=${pagination.size || 20}&
-        sort=${Array.prototype.map
+      const urlTemplate = `organization?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
           .call(pagination.sort, function (s) { return `${<string> s.field},${<string> s.direction}` })
           .join('&sort=')}`
       axios.get<Organization[]>(urlTemplate)
