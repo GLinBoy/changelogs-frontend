@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
-import { Organization, CommonError, Pagination, SortDirection } from 'components/models'
+import { CommonError, Pagination, SortDirection, Project } from 'components/models'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
@@ -81,7 +81,7 @@ export default defineComponent({
         sort=${Array.prototype.map
           .call(pagination.sort, function (s) { return `${<string> s.field},${<string> s.direction}` })
           .join('&sort=')}`
-      axios.get<Organization[]>(urlTemplate)
+      axios.get<Project[]>(urlTemplate)
         .then(response => {
           console.log(response.data)
           projects.value = response.data
@@ -122,7 +122,7 @@ export default defineComponent({
       loadData()
     }
 
-    const subscribeProject = (title) => {
+    const subscribeProject = (title: string) => {
       console.log(title)
     }
 
