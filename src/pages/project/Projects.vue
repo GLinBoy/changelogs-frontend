@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
-import { CommonError, Pagination, SortDirection, Project } from 'components/models'
+import { CommonError, Pagination, SortDirection, Sort, Project } from 'components/models'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
@@ -78,7 +78,7 @@ export default defineComponent({
 
     const loadData = () => {
       const urlTemplate = `project?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
-          .call(pagination.sort, function (s) { return `${<string> s.field},${<string> s.direction}` })
+          .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
           .join('&sort=')}`
       axios.get<Project[]>(urlTemplate)
         .then(response => {
