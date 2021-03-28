@@ -84,13 +84,14 @@ import { Project, Owner, CommonError } from 'components/models'
 import { validateName, validateURL } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
 import { AxiosError } from 'axios'
+import { getBase64 } from 'components/utils'
 
 export default defineComponent({
   name: 'ProjectEdit',
   setup (_, context) {
     const axios = context.root.$axios
 
-    const projectLogo =  ref<string>()
+    const projectLogo = ref<string>()
 
     const project = reactive<Project>({
       id: undefined,
@@ -113,13 +114,15 @@ export default defineComponent({
 
     watch(() => projectLogo.value, (newLogo) => {
       if (newLogo) {
-        const reader = new FileReader()
-        reader.onload = (event) => {
-          project.logo = event.target.result
-        }
-        reader.readAsDataURL(newLogo)
+        getBase64(newLogo)
+          .then(result => {
+            project.logo = <string> result
+          })
+          .catch(error => {
+            console.error(error)
+          })
       } else {
-        project.logo = null
+        project.logo = undefined
       }
     })
 
