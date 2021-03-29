@@ -21,9 +21,10 @@
                     :options="owners" label="Owner" />
                 </div>
                 <div class="col-xs-12 col-md-8">
-                  <q-input filled dense required
+                  <q-input filled dense required maxlength=128 counter
                     v-model.trim="project.name" label="Project name"
                     :rules="[val => !!val || 'Field is required',
+                      val => val.length >= 4 || 'Please use between 4-128 characters',
                     val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']">
                     <template v-slot:hint>
                       {{ `Your project URL will be: https://changelogs.info/${project.owner}/${project.title}` }}
@@ -47,17 +48,17 @@
                   </q-file>
                 </div>
                 <div class="col-12">
-                  <q-input filled dense lazy-rules clearable
+                  <q-input filled dense lazy-rules clearable maxlength=128 counter
                     v-model.trim="project.website" label="Project website"
                     :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
                 <div class="col-12">
-                  <q-input filled dense lazy-rules clearable
+                  <q-input filled dense lazy-rules clearable maxlength=128 counter
                     v-model.trim="project.readmeLink" label="Project README link"
                     :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
                 <div class="col-12">
-                  <q-input filled dense lazy-rules clearable
+                  <q-input filled dense lazy-rules clearable maxlength=128 counter
                     v-model.trim="project.licenseLink" label="Project license link"
                     :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
