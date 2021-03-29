@@ -57,7 +57,11 @@
                     v-model.trim="project.readmeLink" label="Project README link"
                     :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
                 </div>
-                <div class="col-12">
+                <div class="col-xs-12 col-md-4">
+                  <q-input filled dense lazy-rules clearable maxlength=32 counter
+                    v-model.trim="project.license" label="Project license"/>
+                </div>
+                <div class="col-xs-12 col-md-8">
                   <q-input filled dense lazy-rules clearable maxlength=128 counter
                     v-model.trim="project.licenseLink" label="Project license link"
                     :rules="[val => validateURL(val, false) || 'Field may be a URL']" />
@@ -105,6 +109,7 @@ export default defineComponent({
       publicAccess: true,
       website: undefined,
       readmeLink: undefined,
+      license: undefined,
       licenseLink: undefined,
       organizationId: undefined
     })

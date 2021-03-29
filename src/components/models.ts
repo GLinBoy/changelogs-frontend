@@ -37,6 +37,7 @@ export interface Project {
   publicAccess: boolean;
   website?: string;
   readmeLink?: string;
+  license?: string;
   licenseLink?: string;
   organizationId?: number;
 }
