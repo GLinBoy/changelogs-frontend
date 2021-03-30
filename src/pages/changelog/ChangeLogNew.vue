@@ -127,7 +127,7 @@ import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/m
 import { validatePathVariable, validateEmail } from 'components/validators'
 
 export default defineComponent({
-  name: 'ChangeLogEdit',
+  name: 'ChangeLogNew',
   setup () {
     const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD')
     const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm')

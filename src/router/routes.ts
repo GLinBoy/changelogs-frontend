@@ -7,6 +7,7 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', name: 'Home', component: () => import('pages/Index.vue') },
+      { path: 'new', name: 'New', component: () => import('pages/changelog/ChangeLogNew.vue') },
       {
         path: 'organization',
         component: () => import('pages/organization/OrganizationPage.vue'),
@@ -25,7 +26,15 @@ const routes: RouteConfig[] = [
           { path: ':projectTitle', name: 'Project', component: () => import('pages/project/Project.vue') }
         ]
       },
-      { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogEdit.vue') },
+      {
+        path: 'changelog',
+        component: () => import('pages/changelog/ChangeLogPage.vue'),
+        children: [
+          { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/ChangeLogs.vue') },
+          { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogNew.vue') },
+          { path: ':version', name: 'ChangeLog', component: () => import('pages/changelog/ChangeLog.vue') }
+        ]
+      },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
       { path: 'notifications', name: 'Notifications', component: () => import('pages/Notifications.vue') },
       { path: 'messages', name: 'Messages', component: () => import('pages/Messages.vue') },
@@ -44,7 +53,7 @@ const routes: RouteConfig[] = [
         path: ':username/:project',
         component: () => import('pages/changelog/changeLogs.vue'),
         children: [
-          { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/changeLogs.vue') },
+          { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/changeLogs.vue') },
           { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/changeLogs.vue') }
         ]
       }
