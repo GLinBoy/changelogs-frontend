@@ -7,16 +7,16 @@ export interface Meta {
   totalCount: number;
 }
 
+export interface Violation {
+  field?: string;
+  message?: string;
+}
+
 export interface CommonError {
   title?: string;
   status?: number;
   detail?: string;
   violations?: Violation[];
-}
-
-export interface Violation {
-  field?: string;
-  message?: string;
 }
 
 export interface Organization {
@@ -61,20 +61,6 @@ export enum Platform {
   IOT = 'IOT'
 }
 
-export interface ChangeLog {
-  id?: number;
-  versionNo: string;
-  buildVersion?: string;
-  releaseDate: string;
-  publisher: string;
-  contact: string;
-  forceUpdate: boolean;
-  platform: Platform;
-  projectId: number;
-  isActive: boolean;
-  contents: ChangeLogContent[];
-}
-
 export enum ContentType {
   ADDED = 'ADDED',
   CHANGED = 'CHANGED',
@@ -92,10 +78,23 @@ export interface ChangeLogContent {
   isActive: boolean;
 }
 
-export interface Pagination {
-  page: number;
-  size: number;
-  sort: Sort[];
+export interface ChangeLog {
+  id?: number;
+  versionNo: string;
+  buildVersion?: string;
+  releaseDate: string;
+  publisher: string;
+  contact: string;
+  forceUpdate: boolean;
+  platform: Platform;
+  projectId: number;
+  isActive: boolean;
+  contents: ChangeLogContent[];
+}
+
+export enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
 }
 
 export interface Sort {
@@ -103,7 +102,8 @@ export interface Sort {
   direction: SortDirection;
 }
 
-export enum SortDirection {
-  ASC = 'ASC',
-  DESC = 'DESC'
+export interface Pagination {
+  page: number;
+  size: number;
+  sort: Sort[];
 }
