@@ -30,7 +30,7 @@ const routes: RouteConfig[] = [
         path: 'changelog',
         component: () => import('pages/changelog/ChangeLogPage.vue'),
         children: [
-          { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/ChangeLogs.vue') },
+          { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
           { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogNew.vue') },
           { path: ':version', name: 'ChangeLog', component: () => import('pages/changelog/ChangeLog.vue') }
         ]
@@ -51,10 +51,10 @@ const routes: RouteConfig[] = [
       },
       {
         path: ':username/:project',
-        component: () => import('pages/changelog/changeLogs.vue'),
+        component: () => import('pages/changelog/ChangeLogsList.vue'),
         children: [
-          { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/changeLogs.vue') },
-          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/changeLogs.vue') }
+          { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
+          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/ChangeLogsList.vue') }
         ]
       }
     ]
