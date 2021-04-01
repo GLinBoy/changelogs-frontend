@@ -10,14 +10,14 @@
             <q-form autocomplete="off"
               @submit="saveChangeLog" class="row q-col-gutter-md">
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense required
+              <q-input filled dense required maxlength=32 counter
                 v-model.trim="changelog.versionNo" label="Version No."
                 :rules="[val => !!val || 'Field is required',
                   val => validatePathVariable(val) ||
                   'May only contain alphanumeric characters, dash, underline and dot']" />
             </div>
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense
+              <q-input filled dense maxlength=32 counter
                 v-model.trim="changelog.buildVersion" label="Build Version"
                 :rules="[val => validatePathVariable(val, false) ||
                   'May only contain alphanumeric characters, dash, underline and dot']" />
@@ -57,12 +57,12 @@
                 :options="platforms" label="Platform" />
             </div>
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense required
+              <q-input filled dense required maxlength=128 counter
                 v-model.trim="changelog.publisher" label="Publisher"
                   :rules="[val => !!val || 'Field is required']" />
             </div>
             <div class="col-xs-12 col-md-6">
-              <q-input filled dense required
+              <q-input filled dense required maxlength=64 counter
                 v-model.trim="changelog.contact" label="Contact"
                   :rules="[val => !!val || 'Field is required',
                     val => validateEmail(val) || 'Invalid email address']" />
@@ -137,8 +137,8 @@ export default defineComponent({
       versionNo: '',
       buildVersion: undefined,
       releaseDate: new Date(currentDate).toISOString(),
-      publisher: 'anonymouse',
-      contact: 'anonymouse@web.com',
+      publisher: '',
+      contact: '',
       forceUpdate: false,
       platform: Platform[Platform.API],
       projectId: 0,
