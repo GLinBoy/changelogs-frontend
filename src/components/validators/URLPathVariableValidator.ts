@@ -4,7 +4,7 @@ export function validatePathVariable (variable: string, required = true): boolea
   } else if (!required && !variable) {
     return true
   } else {
-    const re = /^[a-zA-Z0-9_-]*$/
+    const re = /^[a-zA-Z0-9_.-]*$/
     return re.test(variable)
   }
 }
