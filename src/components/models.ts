@@ -107,3 +107,10 @@ export interface Pagination {
   size: number;
   sort: Sort[];
 }
+
+export interface MinimizedProject {
+  id: number;
+  name: string;
+  owner: string;
+  title: string;
+}
