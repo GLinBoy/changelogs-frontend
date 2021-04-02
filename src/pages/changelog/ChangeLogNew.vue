@@ -254,7 +254,34 @@ export default defineComponent({
     })
 
     const saveChangeLog = () => {
-      console.log('Project saved!', changelog)
+      axios.post<ChangeLog>('changelog', changelog)
+        .then(async response => {
+          // await context.root.$router.push({ path: `/project/${response.data.title}` })
+          console.log(response.data)
+        })
+        .catch((error: AxiosError) => {
+          console.error(error)
+          if (error.response && error.response.data) {
+            const errorData = <CommonError> error.response.data
+            context.root.$q.notify({
+              progress: true,
+              message: errorData.title,
+              caption: errorData.detail,
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          } else {
+            context.root.$q.notify({
+              progress: true,
+              message: 'Network Error',
+              caption: 'Can\'t access the APIs, please check your network, ant try again',
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          }
+        })
     }
 
     return {
