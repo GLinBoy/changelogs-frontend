@@ -9,14 +9,23 @@
             </div>
             <q-form autocomplete="off"
               @submit="saveChangeLog" class="row q-col-gutter-md">
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
+              <q-select filled required dense
+                options-dense emit-value map-options
+                v-model="changelog.projectId"
+                option-value="id"
+                option-label="name"
+                :options="projects"
+                label="Project" />
+            </div>
+            <div class="col-xs-12 col-md-4">
               <q-input filled dense required maxlength=32 counter
                 v-model.trim="changelog.versionNo" label="Version No."
                 :rules="[val => !!val || 'Field is required',
                   val => validatePathVariable(val) ||
                   'May only contain alphanumeric characters, dash, underline and dot']" />
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
               <q-input filled dense maxlength=32 counter
                 v-model.trim="changelog.buildVersion" label="Build Version"
                 :rules="[val => validatePathVariable(val, false) ||
@@ -123,12 +132,15 @@
 <script lang="ts">
 import { date } from 'quasar'
 import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
-import { ChangeLog, ChangeLogContent, Platform, ContentType } from 'components/models'
+import { ChangeLog, ChangeLogContent, Platform, ContentType, MinimizedProject, CommonError } from 'components/models'
 import { validatePathVariable, validateEmail } from 'components/validators'
+import { AxiosError } from 'axios'
 
 export default defineComponent({
   name: 'ChangeLogNew',
-  setup () {
+  setup (_, context) {
+    const axios = context.root.$axios
+
     const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD')
     const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm')
 
@@ -141,7 +153,7 @@ export default defineComponent({
       contact: '',
       forceUpdate: false,
       platform: Platform[Platform.API],
-      projectId: 0,
+      projectId: -1,
       isActive: true,
       contents: []
     })
@@ -159,6 +171,53 @@ export default defineComponent({
     const releaseDateHint = computed(() => {
       return new Date(changelog.releaseDate).toUTCString()
     })
+
+    const projects = ref<MinimizedProject[]>([])
+
+    axios.get<MinimizedProject[]>('project/minimized')
+      .then(response => {
+        projects.value = projects.value.concat(response.data)
+        if (response.data && response.data.length > 0) {
+          const prjTitle = <string> context.root.$route.query.p
+          if (prjTitle && response.data.some(p => p.title === prjTitle)) {
+            changelog.projectId = response?.data?.find(p => p.title === prjTitle)?.id || -1
+          } else {
+            changelog.projectId = response.data[0].id
+          }
+        } else {
+          context.root.$q.notify({
+            progress: true,
+            message: 'Projects is empty',
+            caption: 'You didn\'t add any project! Please add a project ad try again.',
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error(error)
+        if (error.response && error.response.data) {
+          const errorData = <CommonError> error.response.data
+          context.root.$q.notify({
+            progress: true,
+            message: errorData.title,
+            caption: errorData.detail,
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+        } else {
+          context.root.$q.notify({
+            progress: true,
+            message: 'Network Error',
+            caption: 'Can\'t access the APIs, please check your network, ant try again',
+            position: 'bottom-right',
+            color: 'negative',
+            icon: 'report_problem'
+          })
+        }
+      })
 
     const types = Object.keys(ContentType)
     const platforms = Object.keys(Platform)
@@ -201,6 +260,7 @@ export default defineComponent({
     return {
       validatePathVariable,
       validateEmail,
+      projects,
       changelog,
       releaseDateTemp,
       releaseDateHint,
