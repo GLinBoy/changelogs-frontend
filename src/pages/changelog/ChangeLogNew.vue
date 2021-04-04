@@ -256,8 +256,9 @@ export default defineComponent({
     const saveChangeLog = () => {
       axios.post<ChangeLog>('changelog', changelog)
         .then(async response => {
-          // await context.root.$router.push({ path: `/project/${response.data.title}` })
-          console.log(response.data)
+          const project: MinimizedProject = projects.value.find(p => p.id === response.data.projectId)
+          await context.root.$router
+            .push({ path: `/${project.owner}/${project.title}/${response.data.versionNo}` })
         })
         .catch((error: AxiosError) => {
           console.error(error)
