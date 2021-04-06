@@ -29,6 +29,16 @@
             </div>
             <div class="row q-pb-lg">
               <div class="col-12">
+                <q-input required dense filled label="Contact email"
+                  maxlength=64 counter
+                  :rules="[val => !!val || 'Field is required',
+                    val => val.length >= 8 || 'Please use between 8-64 characters',
+                    val => validateEmail(val) || 'Invalid email address']"
+                  v-model.trim="organization.email" />
+              </div>
+            </div>
+            <div class="row q-pb-lg">
+              <div class="col-12">
                 <q-file filled dense clearable counter bottom-slots nullable
                   accept="image/*" max-file-size="500000"
                   v-model="organizationLogo" label="Organization logo">
@@ -61,16 +71,6 @@
                   maxlength=64 counter
                   :rules="[val => validateURL(val, false) || 'Invalid URL']"
                   v-model.trim="organization.website" />
-              </div>
-            </div>
-            <div class="row q-pb-lg">
-              <div class="col-12">
-                <q-input required dense filled label="Contact email"
-                  maxlength=64 counter
-                  :rules="[val => !!val || 'Field is required',
-                    val => val.length >= 8 || 'Please use between 8-64 characters',
-                    val => validateEmail(val) || 'Invalid email address']"
-                  v-model.trim="organization.email" />
               </div>
             </div>
             <div class="row">
