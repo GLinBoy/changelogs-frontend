@@ -23,7 +23,12 @@ export interface Organization {
   id?: number;
   name: string;
   title: string;
+  slogan?: string;
+  website?: string;
   email: string;
+  location?: string;
+  logo?: string;
+  verified?: boolean;
 }
 
 export interface Project {
