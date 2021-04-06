@@ -29,6 +29,42 @@
             </div>
             <div class="row q-pb-lg">
               <div class="col-12">
+                <q-file filled dense clearable counter bottom-slots nullable
+                  accept="image/*" max-file-size="500000"
+                  v-model="organizationLogo" label="Organization logo">
+                  <template v-slot:prepend>
+                    <q-icon name="attach_file" />
+                  </template>
+                  <template v-slot:hint>
+                    Only image under 512 KB
+                  </template>
+                </q-file>
+              </div>
+            </div>
+            <div class="row q-pb-lg">
+              <div class="col-12">
+                <q-input dense filled label="Slogan"
+                  maxlength=128 counter
+                  v-model.trim="organization.slogan" />
+              </div>
+            </div>
+            <div class="row q-pb-lg">
+              <div class="col-12">
+                <q-input dense filled label="Location"
+                  maxlength=64 counter
+                  v-model.trim="organization.localtion" />
+              </div>
+            </div>
+            <div class="row q-pb-lg">
+              <div class="col-12">
+                <q-input dense filled label="Website"
+                  maxlength=64 counter
+                  :rules="[val => validateURL(val, false) || 'Invalid URL']"
+                  v-model.trim="organization.website" />
+              </div>
+            </div>
+            <div class="row q-pb-lg">
+              <div class="col-12">
                 <q-input required dense filled label="Contact email"
                   maxlength=64 counter
                   :rules="[val => !!val || 'Field is required',
@@ -54,8 +90,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, watch } from '@vue/composition-api'
 import { Organization, CommonError } from 'components/models'
-import { validateName, validateEmail } from 'components/validators'
+import { validateName, validateEmail, validateURL } from 'components/validators'
 import { titleGenerator } from 'components/TitleGenerator'
+import { getBase64 } from 'components/utils'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
@@ -64,6 +101,8 @@ export default defineComponent({
     const axios = context.root.$axios
 
     const isWaiting = ref<boolean>(false)
+
+    const organizationLogo = ref<string>()
 
     const organization = reactive<Organization>({
       name: '',
@@ -103,8 +142,24 @@ export default defineComponent({
         })
     }
 
+    watch(() => organizationLogo.value, (newLogo) => {
+      if (newLogo) {
+        getBase64(newLogo)
+          .then(result => {
+            organization.logo = <string> result
+          })
+          .catch(error => {
+            console.error(error)
+          })
+      } else {
+        organization.logo = undefined
+      }
+    })
+
     return {
+      organizationLogo,
       organization,
+      validateURL,
       validateEmail,
       validateName,
       saveStatus,
