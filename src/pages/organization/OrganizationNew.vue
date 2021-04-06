@@ -62,7 +62,7 @@
               <div class="col-12">
                 <q-input dense filled label="Location"
                   maxlength=64 counter
-                  v-model.trim="organization.localtion" />
+                  v-model.trim="organization.location" />
               </div>
             </div>
             <div class="row q-pb-lg">
