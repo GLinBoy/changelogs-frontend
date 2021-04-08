@@ -11,9 +11,6 @@
         <q-btn dense round flat icon="notifications_active" to="/notifications">
           <q-badge color="red" rounded floating transparent label="1"/>
         </q-btn>
-        <q-btn dense round flat icon="email" to="/messages">
-          <q-badge color="red" rounded floating transparent label="4" />
-        </q-btn>
         <q-btn flat round dense icon="add_box">
           <q-menu>
             <q-list style="min-width: 150px">
