@@ -17,7 +17,10 @@
                     </q-avatar>
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>{{ change.project.owner + '/' + change.project.title }}
+                    <q-item-label>
+                      <router-link :to="change.project.owner + '/' + change.project.title">
+                        {{ change.project.owner + '/' + change.project.title }}
+                      </router-link>
                       <q-chip square dense size="md">
                         <q-avatar icon="lightbulb" color="blue" text-color="white" />
                         {{ change.versionNo }}
@@ -28,7 +31,11 @@
                       </q-chip>
                     </q-item-label>
                     <q-item-label caption>
-                      By <b>{{change.publisher}} @ {{ date.formatDate(change.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
+                      By <b>
+                        <router-link :to="change.publisher">
+                          {{change.publisher}}
+                        </router-link>
+                      </b> @ <b>{{ date.formatDate(change.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
                     </q-item-label>
                   </q-item-section>
                 </q-item>
