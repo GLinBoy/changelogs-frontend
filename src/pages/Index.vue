@@ -22,10 +22,13 @@
                         :to="change.project.owner + '/' + change.project.title">
                         {{ change.project.owner + '/' + change.project.title }}
                       </router-link>
-                      <q-chip square dense size="md">
-                        <q-avatar icon="lightbulb" color="blue" text-color="white" />
-                        {{ change.versionNo }}
-                      </q-chip>
+                      <router-link style="text-decoration: none; color: inherit;"
+                        :to="change.project.owner + '/' + change.project.title + '/' + change.versionNo">
+                        <q-chip square dense size="md">
+                          <q-avatar icon="lightbulb" color="blue" text-color="white" />
+                          {{ change.versionNo }}
+                        </q-chip>
+                      </router-link>
                       <q-chip square dense size="md">
                         <q-avatar icon="settings" color="red" text-color="white" />
                         {{ change.platform }}
