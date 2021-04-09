@@ -18,7 +18,8 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>
-                      <router-link :to="change.project.owner + '/' + change.project.title">
+                      <router-link style="text-decoration: none; color: inherit;"
+                        :to="change.project.owner + '/' + change.project.title">
                         {{ change.project.owner + '/' + change.project.title }}
                       </router-link>
                       <q-chip square dense size="md">
@@ -32,7 +33,8 @@
                     </q-item-label>
                     <q-item-label caption>
                       By <b>
-                        <router-link :to="change.publisher">
+                        <router-link :to="change.publisher"
+                          style="text-decoration: none; color: inherit;">
                           {{change.publisher}}
                         </router-link>
                       </b> @ <b>{{ date.formatDate(change.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
