@@ -28,7 +28,7 @@
                       </q-chip>
                     </q-item-label>
                     <q-item-label caption>
-                      By <b>{{change.publisher}} @ {{ change.releaseDate }}</b>
+                      By <b>{{change.publisher}} @ {{ date.formatDate(change.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
                     </q-item-label>
                   </q-item-section>
                 </q-item>
@@ -59,6 +59,7 @@
 </template>
 
 <script lang="ts">
+import { date } from 'quasar'
 import { ChangeLog, Pagination, Sort, SortDirection, CommonError } from 'components/models'
 import { defineComponent, ref, reactive } from '@vue/composition-api'
 import { AxiosError } from 'axios'
@@ -111,7 +112,10 @@ export default defineComponent({
           })
         }
       })
-    return { changelogs }
+    return {
+      changelogs,
+      date
+    }
   }
 })
 </script>
