@@ -73,8 +73,8 @@
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="primary" />
     </q-page-scroller>
-    <q-footer elevated class="bg-grey-8 text-white text-center">
-      <p>Simple footer</p>
+    <q-footer elevated class="bg-primarry text-white text-center">
+      <Footer></Footer>
     </q-footer>
 
   </q-layout>
@@ -82,9 +82,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
+import Footer from 'components/Footer'
 
 export default defineComponent({
   name: 'MainLayout',
+  components : { Footer },
   setup () {
     const leftDrawerOpen = ref(false)
 
