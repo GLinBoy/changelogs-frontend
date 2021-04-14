@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-md-6">
           <div class="row">
             <div class="col-12">
-              <span>latest changelogs:</span>
+              <span class="text-subtitle2">latest changelogs:</span>
             </div>
             <div class="col-12">
               <q-card class="my-card" flat
@@ -44,16 +44,13 @@
                     </q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-card-section horizontal>
-                  <q-card-section class="col-xs-2 col-md-1">
-
-                  </q-card-section>
-                  <q-card-section class="col-xs-10 col-ms-11">
+                <q-card-section horizontal class="row">
+                  <q-card-section class="col-12">
                     <q-card flat bordered>
                       <q-card-section>
                         <dl>
                           <div v-for="content in change.contents" :key="content.id">
-                            <dt class="col-sm-3">{{ content.contentType }}</dt>
+                            <dt class="col-sm-3 text-bold">{{ content.contentType }}:</dt>
                             <dd class="col-sm-9">{{ content.content }}</dd>
                           </div>
                         </dl>
