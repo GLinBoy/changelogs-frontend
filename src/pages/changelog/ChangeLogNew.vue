@@ -256,7 +256,7 @@ export default defineComponent({
     const saveChangeLog = () => {
       axios.post<ChangeLog>('changelog', changelog)
         .then(async response => {
-          const project: MinimizedProject = projects.value.find(p => p.id === response.data.projectId)
+          const project: MinimizedProject = projects.value.filter(p => p.id === response.data.projectId)[0]
           await context.root.$router
             .push({ path: `/${project.owner}/${project.title}/${response.data.versionNo}` })
         })
