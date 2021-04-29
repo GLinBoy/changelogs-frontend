@@ -26,14 +26,13 @@
             </q-chip>
           </q-item-label>
           <q-item-label caption class="text-white">
-              By <b>
-                <router-link :to="changelog.publisher"
-                  style="text-decoration: none; color: inherit;">
-                  {{changelog.publisher}}
-                </router-link>
-              </b> @ <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
-            </q-item-label>
-          </q-item-section>
+            By <b>
+              <router-link :to="changelog.publisher"
+                style="text-decoration: none; color: inherit;">
+                {{changelog.publisher}}
+              </router-link>
+            </b> @ <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
+          </q-item-label>
         </div>
 
         <div class="col-auto">
