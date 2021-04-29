@@ -7,7 +7,9 @@
             <div class="col-12 q-col-gutter-sm">
               <div class="row"
                 v-for="changelog in changelogs" :key="changelog.id">
-                <change :changelog="changelog" />
+                  <div class="col-12">
+                    <change :changelog="changelog" />
+                  </div>
               </div>
             </div>
           </div>
