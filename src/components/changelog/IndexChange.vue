@@ -3,7 +3,7 @@
     <q-card-section class="bg-primary text-white">
       <div class="row items-center no-wrap">
         <div class="col-1">
-          <q-avatar>
+          <q-avatar color="white">
             <img :src="changelog.project.logo">
           </q-avatar>
         </div>
