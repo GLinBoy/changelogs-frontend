@@ -37,10 +37,6 @@ export default defineComponent({
     const project = context.root.$route.params.project
     const version = context.root.$route.params.version
 
-    console.log(username)
-    console.log(project)
-    console.log(version)
-
     const changelogs = ref<ChangeLog[]>([])
 
     const totalCount = ref<number>(0)
