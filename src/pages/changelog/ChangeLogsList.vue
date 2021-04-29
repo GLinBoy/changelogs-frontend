@@ -15,7 +15,7 @@
                           <div class="text-h6">{{ changelog.versionNo }}
                             for
                             {{ changelog.platform }}
-                            ({{ changelog.buildVersion }})
+                            <span v-if="changelog.buildVersion">({{ changelog.buildVersion }})</span>
                           </div>
                           <div class="text-subtitle2">by <b>{{ changelog.publisher }}</b>
                             at
