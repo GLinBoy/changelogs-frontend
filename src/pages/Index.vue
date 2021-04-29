@@ -5,60 +5,16 @@
         <div class="col-xs-12 col-md-6">
           <div class="row">
             <div class="col-12">
-              <span class="text-subtitle2">latest changelogs:</span>
+              <div class="text-h6">latest changelogs:</div>
+              <br />
             </div>
-            <div class="col-12">
-              <q-card class="my-card" flat
-                 v-for="change in changelogs" :key="change.key">
-                <q-item>
-                  <q-item-section avatar>
-                    <q-avatar>
-                      <img :src="change.project.logo">
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>
-                      <router-link style="text-decoration: none; color: inherit;"
-                        :to="change.project.owner + '/' + change.project.title">
-                        {{ change.project.owner + '/' + change.project.title }}
-                      </router-link>
-                      <router-link style="text-decoration: none; color: inherit;"
-                        :to="change.project.owner + '/' + change.project.title + '/' + change.versionNo">
-                        <q-chip square dense size="md">
-                          <q-avatar icon="lightbulb" color="blue" text-color="white" />
-                          {{ change.versionNo }}
-                        </q-chip>
-                      </router-link>
-                      <q-chip square dense size="md">
-                        <q-avatar icon="settings" color="red" text-color="white" />
-                        {{ change.platform }}
-                      </q-chip>
-                    </q-item-label>
-                    <q-item-label caption>
-                      By <b>
-                        <router-link :to="change.publisher"
-                          style="text-decoration: none; color: inherit;">
-                          {{change.publisher}}
-                        </router-link>
-                      </b> @ <b>{{ date.formatDate(change.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-                <q-card-section horizontal class="row">
-                  <q-card-section class="col-12">
-                    <q-card flat bordered>
-                      <q-card-section>
-                        <dl>
-                          <div v-for="content in change.contents" :key="content.id">
-                            <dt class="col-sm-3 text-bold">{{ content.contentType }}:</dt>
-                            <dd class="col-sm-9">{{ content.content }}</dd>
-                          </div>
-                        </dl>
-                      </q-card-section>
-                    </q-card>
-                  </q-card-section>
-                </q-card-section>
-              </q-card>
+            <div class="col-12 q-col-gutter-sm">
+              <div class="row"
+                v-for="changelog in changelogs" :key="changelog.id">
+                  <div class="col-12">
+                    <change :changelog="changelog" />
+                  </div>
+              </div>
             </div>
           </div>
         </div>
@@ -69,13 +25,16 @@
 
 <script lang="ts">
 import { date } from 'quasar'
-import { ChangeLog, Pagination, Sort, SortDirection, CommonError } from 'components/models'
 import { defineComponent, ref, reactive } from '@vue/composition-api'
+import { ChangeLog, Pagination, Sort, SortDirection, CommonError } from 'components/models'
+import IndexChange from 'components/changelog/IndexChange.vue'
 import { AxiosError } from 'axios'
 
 export default defineComponent({
   name: 'PageIndex',
-  components: {},
+  components: {
+    'change': IndexChange
+  },
   setup (_, context) {
     const axios = context.root.$axios
 
