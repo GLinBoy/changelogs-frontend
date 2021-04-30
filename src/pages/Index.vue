@@ -16,6 +16,16 @@
                   </div>
               </div>
             </div>
+            <div class="col-12">
+              <div class="row q-pa-md justify-center">
+                <div class="col-xs-6 col-md-3 q-pa-md">
+                  <q-btn outline color="primary" icon="navigate_before" label="Back" class="full-width" />
+                </div>
+                <div class="col-xs-6 col-md-3 q-pa-md">
+                  <q-btn outline color="primary" label="Next" icon-right="navigate_next" class="full-width" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </q-page>
@@ -25,7 +35,7 @@
 
 <script lang="ts">
 import { date } from 'quasar'
-import { defineComponent, ref, reactive } from '@vue/composition-api'
+import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
 import { ChangeLog, Pagination, Sort, SortDirection, CommonError } from 'components/models'
 import IndexChange from 'components/changelog/IndexChange.vue'
 import { AxiosError } from 'axios'
@@ -40,6 +50,8 @@ export default defineComponent({
 
     const changelogs = ref<ChangeLog[]>([])
 
+    const totalCount = ref<number>(0)
+
     const pagination = reactive<Pagination>({
       page: 0,
       size: 20,
@@ -49,41 +61,61 @@ export default defineComponent({
       }]
     })
 
-    const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
-        .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
-        .join('&sort=')}`
+    const loadData = () => {
+      const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+          .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
+          .join('&sort=')}`
 
-    axios.get<ChangeLog[]>(urlTemplate)
-      .then(response => {
-        changelogs.value = response.data
-      })
-      .catch((error: AxiosError) => {
-        console.error(error)
-        if (error.response && error.response.data) {
-          const errorData = <CommonError> error.response.data
-          context.root.$q.notify({
-            progress: true,
-            message: errorData.title,
-            caption: errorData.detail,
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        } else {
-          context.root.$q.notify({
-            progress: true,
-            message: 'Network Error',
-            caption: 'Can\'t access the APIs, please check your network, ant try again',
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        }
-      })
-    return {
-      changelogs,
-      date
-    }
+      axios.get<ChangeLog[]>(urlTemplate)
+        .then(response => {
+          changelogs.value = response.data
+          totalCount.value = <number> response.headers['x-total-count']
+        })
+        .catch((error: AxiosError) => {
+          console.error(error)
+          if (error.response && error.response.data) {
+            const errorData = <CommonError> error.response.data
+            context.root.$q.notify({
+              progress: true,
+              message: errorData.title,
+              caption: errorData.detail,
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          } else {
+            context.root.$q.notify({
+              progress: true,
+              message: 'Network Error',
+              caption: 'Can\'t access the APIs, please check your network, ant try again',
+              position: 'bottom-right',
+              color: 'negative',
+              icon: 'report_problem'
+            })
+          }
+        })
+      }
+
+      onMounted(() => loadData())
+
+      const nextPage = () => {
+        pagination.page = pagination.page + 1
+        loadData()
+      }
+
+      const backPage = () => {
+        pagination.page = pagination.page - 1
+        loadData()
+      }
+
+      return {
+        changelogs,
+        date,
+        pagination,
+        totalCount,
+        nextPage,
+        backPage
+      }
   }
 })
 </script>
