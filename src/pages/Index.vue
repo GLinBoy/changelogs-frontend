@@ -80,6 +80,7 @@ export default defineComponent({
         .then(response => {
           changelogs.value = response.data
           totalCount.value = <number> response.headers['x-total-count']
+          window.scrollTo(0, 0)
         })
         .catch((error: AxiosError) => {
           console.error(error)
