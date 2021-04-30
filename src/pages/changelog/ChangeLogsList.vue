@@ -12,6 +12,26 @@
                   </div>
               </div>
             </div>
+            <div class="col-12">
+              <div class="row q-pa-md justify-center">
+                <div class="col-xs-6 col-md-3 q-pa-md">
+                  <q-btn outline color="primary"
+                    icon="navigate_before"
+                    label="Back"
+                    class="full-width"
+                    :disable="pagination.page === 0"
+                    @click="backPage" />
+                </div>
+                <div class="col-xs-6 col-md-3 q-pa-md">
+                  <q-btn outline color="primary"
+                    label="Next"
+                    icon-right="navigate_next"
+                    class="full-width"
+                    :disable="(pagination.page + 1) * pagination.size >= totalCount"
+                    @click="nextPage"  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </q-page>
