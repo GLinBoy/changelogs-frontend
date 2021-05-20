@@ -948,10 +948,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app@^2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.2.5.tgz#d1124c774be7e5311559fe99d3cf7bb263eb5616"
-  integrity sha512-FL+cvjvxa4Owd8J1yMfAKLXlmPn7Dwvy2DTSvuGmsIMXrGlM/gN28ZUmlMlyMEK7PiPYVFo2zEOB+Tg5dm4KqA==
+"@quasar/app@^2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.2.6.tgz#f728a845bd93a7feba3d5d59038b3b302fb804ae"
+  integrity sha512-wYgY11e6VLtBU5tEgbCny6h+C8mr1//F4XvaJYLolE7+1HFxUF5Z9QukPkMLxtwf+N/ms5woT29/Y2T1j6rbqw==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -1058,10 +1058,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.10.4":
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.4.tgz#904ea87a3ee294bc09985651382501c564ca4699"
-  integrity sha512-FIXvYZPTKFjBmMb9CNMkEqXTgNppixRLWdaZKKb1qn/CScn+jipPzMBOwCfAFwsNPeAGXTwFT1/xzhLWIbwzAw==
+"@quasar/extras@^1.10.5":
+  version "1.10.5"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.5.tgz#5c115c83d5954777f2ce00a256ae085bcb076100"
+  integrity sha512-iBI9bRfomvxfnE2RUYMK0q7tki7Y0I0KMLuxoSEQC0OsOghJ/3ANENyGm1S0AsVMmNYwj0bzQWYVA6KD7/NwHg==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -6989,10 +6989,10 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-quasar@^1.15.12:
-  version "1.15.12"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.15.12.tgz#eaf8e19cbf43d8a367a7ac031f1390541f0ec582"
-  integrity sha512-xdobS30Cr+djaEw8wJm2FHLAvOM+ftki0jM7zn6+4+FN8p7N15RhuDDASHyatdaGFw5f1BYGLKH//S7aMqlzLA==
+quasar@^1.15.15:
+  version "1.15.15"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.15.15.tgz#b6969a028560b224ad50f71c7dcb014bc38726ae"
+  integrity sha512-Bfh3Won1botXoZrl+RTjNkbao7bZbNuOuRZ7EMDStcdCLo+I2vshvE+48uB8tFe5Q+VOEHyLOJpRm7kR8ekBdg==
 
 query-string@^4.1.0:
   version "4.3.4"
