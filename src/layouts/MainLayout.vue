@@ -2,12 +2,15 @@
   <q-layout view="hHh lpR fff">
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar class="q-gutter-x-sm">
-        <q-toolbar-title>
+        <q-btn unelevated :ripple="false" no-caps flat to="/">
           <q-avatar>
             <img alt="ChangeLogs logo" src="~assets/changelogs-logo.svg">
           </q-avatar>
-          ChangeLogs
-        </q-toolbar-title>
+          <q-toolbar-title>
+            ChangeLogs
+          </q-toolbar-title>
+        </q-btn>
+        <q-space/>
         <q-btn dense round flat icon="notifications_active" to="/notifications">
           <q-badge color="red" rounded floating transparent label="1"/>
         </q-btn>
