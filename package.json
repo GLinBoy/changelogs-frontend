@@ -4,6 +4,7 @@
   "description": "An application for manage change logs",
   "productName": "ChangeLogs",
   "author": "GLinBoy <hojjatabedie@gmail.com>",
+  "license": " GPL-3.0 License ",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
