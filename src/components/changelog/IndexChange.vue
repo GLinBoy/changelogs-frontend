@@ -36,7 +36,6 @@
         </div>
 
         <div class="col-auto">
-          <q-btn flat round color="red" icon="favorite" />
           <q-btn flat round icon="share" />
         </div>
       </div>
