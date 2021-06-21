@@ -14,7 +14,7 @@
               <q-form autocomplete="off"
                 @submit="saveProject" class="row q-col-gutter-md">
                 <div class="col-xs-12 col-md-4">
-                  <q-select filled dense options-dense required
+                  <q-select filled dense options-dense required disabled
                     v-model="project.owner" emit-value
                     option-value="title"
                     option-label="name"
@@ -139,34 +139,6 @@ export default defineComponent({
         title: 'anonymouse'
       }
     ])
-
-    axios.get<Owner>('organization/owner')
-      .then(response => {
-        owners.value = owners.value.concat(response.data)
-      })
-      .catch((error: AxiosError) => {
-        console.error(error)
-        if (error.response && error.response.data) {
-          const errorData = <CommonError> error.response.data
-          context.root.$q.notify({
-            progress: true,
-            message: errorData.title,
-            caption: errorData.detail,
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        } else {
-          context.root.$q.notify({
-            progress: true,
-            message: 'Network Error',
-            caption: 'Can\'t access the APIs, please check your network, ant try again',
-            position: 'bottom-right',
-            color: 'negative',
-            icon: 'report_problem'
-          })
-        }
-      })
 
     project.owner = owners.value.find(o => o.id === undefined)?.title || ''
 
