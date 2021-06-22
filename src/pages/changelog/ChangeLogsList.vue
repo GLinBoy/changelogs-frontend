@@ -71,7 +71,7 @@ export default defineComponent({
     })
 
     const loadData = () => {
-      const urlTemplate = `changelog/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+      const urlTemplate = `changelog/project/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
           .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
           .join('&sort=')}`
 
