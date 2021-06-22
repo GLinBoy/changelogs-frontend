@@ -31,7 +31,7 @@ const routes: RouteConfig[] = [
       { path: 'messages', name: 'Messages', component: () => import('pages/Messages.vue') },
       { path: 'help', name: 'Help', component: () => import('pages/Help.vue') },
       {
-        path: ':username',
+        path: 'profile/:username',
         name: 'Profile',
         component: () => import('pages/profile/Profile.vue'),
         children: [
