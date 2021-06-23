@@ -71,9 +71,14 @@ export default defineComponent({
     })
 
     const loadData = () => {
-      const urlTemplate = `changelog/project/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+      const urlTemplate = ''
+      if(version) {
+        urlTemplate = `changelog/project/${project}/${version}`
+      } else {
+        urlTemplate = `changelog/project/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
           .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
           .join('&sort=')}`
+      }
 
       axios.get<ChangeLog[]>(urlTemplate)
         .then(response => {
