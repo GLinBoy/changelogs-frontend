@@ -3,7 +3,7 @@
     <q-card-section class="bg-primary text-white">
       <div class="row items-center no-wrap">
         <div class="col">
-          <div class="text-h6">{{ changelog.versionNo }}
+          <div class="text-h6"><a :href=" project + '/' + changelog.versionNo">{{ changelog.versionNo }}</a>
             for
             {{ changelog.platform }}
             <span v-if="changelog.buildVersion">({{ changelog.buildVersion }})</span>
@@ -43,9 +43,12 @@ export default defineComponent({
       required: true
     }
   },
-  setup () {
+  setup (_, context) {
+    const project = context.root.$route.params.project
+
     return {
-      date
+      date,
+      project
     }
   }
 })
