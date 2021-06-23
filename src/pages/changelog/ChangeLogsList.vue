@@ -12,7 +12,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12" v-show="!version">
               <div class="row q-pa-md justify-center">
                 <div class="col-xs-6 col-md-3 q-pa-md">
                   <q-btn outline color="primary"
@@ -128,7 +128,8 @@ export default defineComponent({
         totalCount,
         pagination,
         nextPage,
-        backPage
+        backPage,
+        version,
       }
   }
 })
