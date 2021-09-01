@@ -41,7 +41,7 @@ const routes: RouteConfig[] = [
       },
       {
         path: ':project',
-        component: () => import('pages/changelog/ChangeLogsList.vue'),
+        component: () => import('pages/changelog/ChangeLogPage.vue'),
         children: [
           { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
           { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/ChangeLogsList.vue') }
