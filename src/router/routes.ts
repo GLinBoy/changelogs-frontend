@@ -3,6 +3,13 @@ import { RouteConfig } from 'vue-router'
 const routes: RouteConfig[] = [
   { path: '/login', name: 'Login', component: () => import('pages/Login.vue') },
   {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -14,7 +21,6 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'Projects', component: () => import('pages/project/Projects.vue') },
           { path: 'new', name: 'ProjectNew', component: () => import('pages/project/ProjectNew.vue') },
-          { path: ':projectTitle', name: 'Project', component: () => import('pages/project/Project.vue') }
         ]
       },
       {
@@ -23,7 +29,6 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
           { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogNew.vue') },
-          { path: ':version', name: 'ChangeLog', component: () => import('pages/changelog/ChangeLog.vue') }
         ]
       },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
@@ -44,16 +49,9 @@ const routes: RouteConfig[] = [
         component: () => import('pages/changelog/ChangeLogPage.vue'),
         children: [
           { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
-          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/ChangeLogsList.vue') }
+          { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/ChangeLogsList.vue') },
         ]
       }
-    ]
-  },
-  {
-    path: '/admin',
-    component: () => import('layouts/AdminLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
     ]
   },
 
