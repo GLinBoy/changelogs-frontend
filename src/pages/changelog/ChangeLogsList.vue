@@ -8,7 +8,7 @@
               <div class="row"
                 v-for="changelog in changelogs" :key="changelog.id">
                   <div class="col-12">
-                    <change :changelog="changelog" />
+                    <change :changelog="changelog" :projectTitle="project" />
                   </div>
               </div>
             </div>
@@ -124,6 +124,7 @@ export default defineComponent({
       }
 
       return {
+        project,
         changelogs,
         totalCount,
         pagination,
