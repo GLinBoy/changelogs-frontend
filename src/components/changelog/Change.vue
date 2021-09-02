@@ -3,7 +3,11 @@
     <q-card-section class="bg-primary text-white">
       <div class="row items-center no-wrap">
         <div class="col">
-          <div class="text-h6"><a :href=" project + '/' + changelog.versionNo">{{ changelog.versionNo }}</a>
+          <div class="text-h6">
+            <router-link style="text-decoration: none; color: inherit;"
+              :to="'/' + projectTitle + '/' + changelog.versionNo">
+              {{ changelog.versionNo }}
+            </router-link>
             for
             {{ changelog.platform }}
             <span v-if="changelog.buildVersion">({{ changelog.buildVersion }})</span>
@@ -40,7 +44,11 @@ export default defineComponent({
   props: {
     changelog: {
       type: Object,
-      required: true
+      required: true,
+    },
+    projectTitle: {
+      type: String,
+      required: true,
     }
   },
   setup (_, context) {
