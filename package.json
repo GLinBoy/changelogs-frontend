@@ -11,28 +11,27 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.12.2",
-    "@vue/composition-api": "^1.0.0-rc.3",
+    "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
-    "core-js": "^3.9.1",
-    "quasar": "^1.16.3",
-    "vue-i18n": "^8.24.2"
+    "core-js": "^3.6.5",
+    "quasar": "^2.0.0",
+    "vue-i18n": "^9.0.0",
+    "vuex": "^4.0.1"
   },
   "devDependencies": {
-    "@quasar/app": "^2.2.10",
-    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
-    "@types/node": "^14.14.37",
+    "@babel/eslint-parser": "^7.13.14",
+    "@quasar/app": "^3.0.0",
+    "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-vue": "^7.7.0"
+    "dotenv": "^10.0.0",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-vue": "^7.0.0",
+    "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
-    "ie >= 11",
     "last 10 Chrome versions",
     "last 10 Firefox versions",
     "last 4 Edge versions",
@@ -44,7 +43,7 @@
     "last 5 Opera versions"
   ],
   "engines": {
-    "node": ">= 10.18.1",
+    "node": ">= 12.22.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }
