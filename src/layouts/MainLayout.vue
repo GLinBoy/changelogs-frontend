@@ -78,18 +78,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
-import Footer from 'components/Footer.vue'
+import { defineComponent, ref } from 'vue';
+import Footer from 'components/Footer.vue';
 
 export default defineComponent({
   name: 'MainLayout',
   components: {
-    Footer
+    Footer,
   },
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
 
-    return { leftDrawerOpen }
-  }
-})
+    return { leftDrawerOpen };
+  },
+});
 </script>
