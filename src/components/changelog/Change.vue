@@ -36,8 +36,9 @@
 </template>
 
 <script lang="ts">
-import { date } from 'quasar'
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue';
+import { date } from 'quasar';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'Change',
@@ -49,15 +50,16 @@ export default defineComponent({
     projectTitle: {
       type: String,
       required: true,
-    }
+    },
   },
-  setup (_, context) {
-    const project = context.root.$route.params.project
+  setup() {
+    const $route = useRoute();
+    const { project } = $route.params;
 
     return {
       date,
-      project
-    }
-  }
-})
+      project,
+    };
+  },
+});
 </script>
