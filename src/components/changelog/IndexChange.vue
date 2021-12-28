@@ -53,21 +53,21 @@
 </template>
 
 <script lang="ts">
-import { date } from 'quasar'
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue';
+import { date } from 'quasar';
 
 export default defineComponent({
   name: 'IndexChange',
   props: {
     changelog: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup () {
+  setup() {
     return {
-      date
-    }
-  }
-})
+      date,
+    };
+  },
+});
 </script>
