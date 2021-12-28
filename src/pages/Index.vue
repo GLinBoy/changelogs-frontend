@@ -44,89 +44,104 @@
 </template>
 
 <script lang="ts">
-import { date } from 'quasar'
-import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
-import { ChangeLog, Pagination, Sort, SortDirection, CommonError } from 'components/models'
-import IndexChange from 'components/changelog/IndexChange.vue'
-import { AxiosError } from 'axios'
+import { useQuasar, date } from 'quasar';
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+} from 'vue';
+import {
+  ChangeLog,
+  Pagination,
+  Sort,
+  SortDirection,
+  CommonError,
+} from 'components/models';
+import { api } from 'boot/axios';
+import { AxiosError } from 'axios';
+
+import IndexChange from 'components/changelog/IndexChange.vue';
 
 export default defineComponent({
   name: 'PageIndex',
   components: {
-    'change': IndexChange
+    change: IndexChange,
   },
-  setup (_, context) {
-    const axios = context.root.$axios
+  setup() {
+    const $q = useQuasar();
 
-    const changelogs = ref<ChangeLog[]>([])
+    const changelogs = ref<ChangeLog[]>([]);
 
-    const totalCount = ref<number>(0)
+    const totalCount = ref<number>(0);
 
     const pagination = reactive<Pagination>({
       page: 0,
       size: 20,
-      sort: [{
-        field: 'createdOn',
-        direction: SortDirection.DESC
-      }]
-    })
+      sort: [
+        {
+          field: 'createdOn',
+          direction: SortDirection.DESC,
+        },
+      ],
+    });
 
     const loadData = () => {
       const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
-          .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
-          .join('&sort=')}`
+        .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
+        .join('&sort=')}`;
 
-      axios.get<ChangeLog[]>(urlTemplate)
-        .then(response => {
-          changelogs.value = response.data
-          totalCount.value = <number> response.headers['x-total-count']
-          window.scrollTo(0, 0)
+      api.get<ChangeLog[]>(urlTemplate)
+        .then((response) => {
+          changelogs.value = response.data;
+          totalCount.value = <number> response.headers['x-total-count'];
+          window.scrollTo(0, 0);
         })
         .catch((error: AxiosError) => {
-          console.error(error)
+          console.error(error);
           if (error.response && error.response.data) {
-            const errorData = <CommonError> error.response.data
-            context.root.$q.notify({
+            const errorData = <CommonError> error.response.data;
+            $q.notify({
               progress: true,
               message: errorData.title,
               caption: errorData.detail,
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           } else {
-            context.root.$q.notify({
+            $q.notify({
               progress: true,
               message: 'Network Error',
               caption: 'Can\'t access the APIs, please check your network, ant try again',
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           }
-        })
-      }
+        });
+    };
 
-      onMounted(() => loadData())
+    onMounted(() => loadData());
 
-      const nextPage = () => {
-        pagination.page = pagination.page + 1
-        loadData()
-      }
+    const nextPage = () => {
+      pagination.page += 1;
+      loadData();
+    };
 
-      const backPage = () => {
-        pagination.page = pagination.page - 1
-        loadData()
-      }
+    const backPage = () => {
+      pagination.page -= 1;
+      loadData();
+    };
 
-      return {
-        changelogs,
-        date,
-        pagination,
-        totalCount,
-        nextPage,
-        backPage
-      }
-  }
-})
+    return {
+      changelogs,
+      date,
+      pagination,
+      totalCount,
+      nextPage,
+      backPage,
+    };
+  },
+});
 </script>
