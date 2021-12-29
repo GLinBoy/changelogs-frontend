@@ -8,7 +8,7 @@
               <div class="row"
                 v-for="changelog in changelogs" :key="changelog.id">
                   <div class="col-12">
-                    <change :changelog="changelog" :projectTitle="project" />
+                    <Change :changelog="changelog" :projectTitle="project" />
                   </div>
               </div>
             </div>
@@ -40,91 +40,107 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
-import { ChangeLog, Pagination, SortDirection, Sort, CommonError } from 'components/models'
-import Change from 'components/changelog/Change.vue'
-import { AxiosError } from 'axios'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+} from 'vue';
+import {
+  ChangeLog,
+  Pagination,
+  SortDirection,
+  CommonError,
+} from 'components/models';
+import Change from 'components/changelog/Change.vue';
+import { useQuasar } from 'quasar';
+import { api } from 'boot/axios';
+import { AxiosError } from 'axios';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'ChangeLog',
   components: {
-    'change': Change
+    Change,
   },
-  setup (_, context) {
-    const axios = context.root.$axios
+  setup() {
+    const $q = useQuasar();
+    const $route = useRoute();
 
-    const username = context.root.$route.params.username
-    const project = context.root.$route.params.project
-    const version = context.root.$route.params.version
+    // const { username } = context.root.$route.params;
+    const { project } = $route.params;
+    const { version } = $route.params;
 
-    const changelogs = ref<ChangeLog[]>([])
+    const changelogs = ref<ChangeLog[]>([]);
 
-    const totalCount = ref<number>(0)
+    const totalCount = ref<number>(0);
 
     const pagination = reactive<Pagination>({
       page: 0,
       size: 20,
-      sort: [{
-        field: 'createdOn',
-        direction: SortDirection.DESC
-      }]
-    })
+      sort: [
+        {
+          field: 'createdOn',
+          direction: SortDirection.DESC,
+        },
+      ],
+    });
 
     const loadData = () => {
-      const urlTemplate = `changelog/project/${project}/${version}`
+      const urlTemplate = `changelog/project/${project}/${version}`;
 
-      axios.get<ChangeLog[]>(urlTemplate)
-        .then(response => {
-          changelogs.value = response.data
-          totalCount.value = <number> response.headers['x-total-count']
-          window.scrollTo(0, 0)
+      api.get<ChangeLog[]>(urlTemplate)
+        .then((response) => {
+          changelogs.value = response.data;
+          totalCount.value = <number> response.headers['x-total-count'];
+          window.scrollTo(0, 0);
         })
         .catch((error: AxiosError) => {
-          console.error(error)
+          console.error(error);
           if (error.response && error.response.data) {
-            const errorData = <CommonError> error.response.data
-            context.root.$q.notify({
+            const errorData = <CommonError> error.response.data;
+            $q.notify({
               progress: true,
               message: errorData.title,
               caption: errorData.detail,
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           } else {
-            context.root.$q.notify({
+            $q.notify({
               progress: true,
               message: 'Network Error',
               caption: 'Can\'t access the APIs, please check your network, ant try again',
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           }
-        })
-      }
+        });
+    };
 
-      onMounted(() => loadData())
+    onMounted(() => loadData());
 
-      const nextPage = () => {
-        pagination.page = pagination.page + 1
-        loadData()
-      }
+    const nextPage = () => {
+      pagination.page += 1;
+      loadData();
+    };
 
-      const backPage = () => {
-        pagination.page = pagination.page - 1
-        loadData()
-      }
+    const backPage = () => {
+      pagination.page -= 1;
+      loadData();
+    };
 
-      return {
-        project,
-        changelogs,
-        totalCount,
-        pagination,
-        nextPage,
-        backPage,
-        version,
-      }
-  }
-})
+    return {
+      project,
+      changelogs,
+      totalCount,
+      pagination,
+      nextPage,
+      backPage,
+      version,
+    };
+  },
+});
 </script>
