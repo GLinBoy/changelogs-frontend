@@ -41,7 +41,8 @@
                 </div>
                 <div class="col-6">
                   <q-btn outline color="primary"
-                    @click="nextPage" :disable="!((pagination.page + 1) * pagination.size <= totalCount)"
+                    @click="nextPage"
+                    :disable="!((pagination.page + 1) * pagination.size <= totalCount)"
                     label="Next" icon-right="navigate_next" />
                 </div>
               </div>
@@ -54,77 +55,90 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
-import { CommonError, Pagination, SortDirection, Sort, Project } from 'components/models'
-import { AxiosError } from 'axios'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+} from 'vue';
+import {
+  CommonError,
+  Pagination,
+  SortDirection,
+  Sort,
+  Project,
+} from 'components/models';
+import { useQuasar } from 'quasar';
+import { api } from 'boot/axios';
+import { AxiosError } from 'axios';
 
 export default defineComponent({
   name: 'Projects',
-  setup (_, context) {
-    const axios = context.root.$axios
+  setup() {
+    const $q = useQuasar();
 
-    const projects = ref<Project[]>([])
+    const projects = ref<Project[]>([]);
 
-    const totalCount = ref<number>(0)
+    const totalCount = ref<number>(0);
 
     const pagination = reactive<Pagination>({
       page: 0,
       size: 20,
       sort: [{
         field: 'createdOn',
-        direction: SortDirection.DESC
-      }]
-    })
+        direction: SortDirection.DESC,
+      }],
+    });
 
     const loadData = () => {
       const urlTemplate = `project?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
-          .call(pagination.sort, function (s: Sort) { return `${s.field},${s.direction}` })
-          .join('&sort=')}`
-      axios.get<Project[]>(urlTemplate)
-        .then(response => {
-          projects.value = response.data
-          totalCount.value = <number> response.headers['x-total-count']
+        .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
+        .join('&sort=')}`;
+      api.get<Project[]>(urlTemplate)
+        .then((response) => {
+          projects.value = response.data;
+          totalCount.value = <number> response.headers['x-total-count'];
         })
         .catch((error: AxiosError) => {
-          console.error(error)
+          console.error(error);
           if (error.response && error.response.data) {
-            const errorData = <CommonError> error.response.data
-            context.root.$q.notify({
+            const errorData = <CommonError> error.response.data;
+            $q.notify({
               progress: true,
               message: errorData.title,
               caption: errorData.detail,
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           } else {
-            context.root.$q.notify({
+            $q.notify({
               progress: true,
               message: 'Network Error',
               caption: 'Can\'t access the APIs, please check your network, ant try again',
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           }
-        })
-    }
+        });
+    };
 
     const nextPage = () => {
-      pagination.page = pagination.page + 1
-      loadData()
-    }
+      pagination.page -= 1;
+      loadData();
+    };
 
     const backPage = () => {
-      pagination.page = pagination.page - 1
-      loadData()
-    }
+      pagination.page -= 1;
+      loadData();
+    };
 
     const subscribeProject = (title: string) => {
-      console.log(title)
-    }
+      console.log(title);
+    };
 
-    onMounted(() => loadData())
+    onMounted(() => loadData());
 
     return {
       projects,
@@ -132,8 +146,8 @@ export default defineComponent({
       totalCount,
       nextPage,
       backPage,
-      subscribeProject
-    }
-  }
-})
+      subscribeProject,
+    };
+  },
+});
 </script>
