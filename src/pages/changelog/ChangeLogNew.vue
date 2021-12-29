@@ -92,7 +92,8 @@
                 <div class="col-12" style="max-width: 100%">
                   <q-card v-show="changelog.contents.length > 0">
                     <q-tabs dense inline-label outside-arrows mobile-arrows swipeable shrink stretch
-                      align="justify" v-model="contentTab" class="bg-primary text-white shadow-2 fit col">
+                      align="justify" v-model="contentTab"
+                      class="bg-primary text-white shadow-2 fit col">
                       <q-tab v-for="content in changelog.contents"
                         :key="content.contentType"
                         :name="content.contentType"
@@ -130,19 +131,36 @@
 </template>
 
 <script lang="ts">
-import { date } from 'quasar'
-import { defineComponent, ref, reactive, computed, watch } from '@vue/composition-api'
-import { ChangeLog, ChangeLogContent, Platform, ContentType, MinimizedProject, CommonError } from 'components/models'
-import { validatePathVariable, validateEmail } from 'components/validators'
-import { AxiosError } from 'axios'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  computed,
+  watch,
+} from 'vue';
+import {
+  ChangeLog,
+  ChangeLogContent,
+  Platform,
+  ContentType,
+  MinimizedProject,
+  CommonError,
+} from 'components/models';
+import { validatePathVariable, validateEmail } from 'components/validators';
+import { useQuasar, date } from 'quasar';
+import { api } from 'boot/axios';
+import { AxiosError } from 'axios';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'ChangeLogNew',
-  setup (_, context) {
-    const axios = context.root.$axios
+  setup() {
+    const $q = useQuasar();
+    const $router = useRouter();
+    const $route = useRoute();
 
-    const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD')
-    const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm')
+    const currentDate = date.formatDate(Date.now(), 'YYYY-MM-DD');
+    const currentTime = date.formatDate(new Date('2021-03-12'), 'HH:mm');
 
     const changelog = reactive<ChangeLog>({
       id: undefined,
@@ -155,74 +173,75 @@ export default defineComponent({
       platform: Platform[Platform.API],
       projectId: -1,
       isActive: true,
-      contents: []
-    })
+      contents: [],
+    });
 
-    const releaseDateTemp = ref<string>()
-    releaseDateTemp.value = currentDate + ' ' + currentTime
+    const releaseDateTemp = ref<string>();
+    releaseDateTemp.value = `${currentDate} ${currentTime}`;
 
     watch(() => releaseDateTemp.value, (nextDate) => {
       if (nextDate) {
-        changelog.releaseDate = new Date(nextDate).toISOString()
+        changelog.releaseDate = new Date(nextDate).toISOString();
       } else {
-        changelog.releaseDate = new Date(currentDate).toISOString()
+        changelog.releaseDate = new Date(currentDate).toISOString();
       }
-    })
-    const releaseDateHint = computed(() => {
-      return new Date(changelog.releaseDate).toUTCString()
-    })
+    });
 
-    const projects = ref<MinimizedProject[]>([])
+    const releaseDateHint = computed(() => new Date(changelog.releaseDate).toUTCString());
 
-    axios.get<MinimizedProject[]>('project/minimized')
-      .then(response => {
-        projects.value = projects.value.concat(response.data)
+    const projects = ref<MinimizedProject[]>([]);
+
+    api.get<MinimizedProject[]>('project/minimized')
+      .then((response) => {
+        projects.value = projects.value.concat(response.data);
         if (response.data && response.data.length > 0) {
-          const prjTitle = <string> context.root.$route.query.p
-          if (prjTitle && response.data.some(p => p.title === prjTitle)) {
-            changelog.projectId = response?.data?.find(p => p.title === prjTitle)?.id || -1
+          const prjTitle = <string> $route.query.p;
+          if (prjTitle && response.data.some((p) => p.title === prjTitle)) {
+            changelog.projectId = response?.data?.find((p) => p.title === prjTitle)?.id || -1;
           } else {
-            changelog.projectId = response.data[0].id
+            changelog.projectId = response.data[0].id;
           }
         } else {
-          context.root.$q.notify({
+          $q.notify({
             progress: true,
             message: 'Projects is empty',
             caption: 'You didn\'t add any project! Please add a project ad try again.',
             position: 'bottom-right',
             color: 'negative',
-            icon: 'report_problem'
-          })
+            icon: 'report_problem',
+          });
         }
       })
       .catch((error: AxiosError) => {
-        console.error(error)
+        console.error(error);
         if (error.response && error.response.data) {
-          const errorData = <CommonError> error.response.data
-          context.root.$q.notify({
+          const errorData = <CommonError> error.response.data;
+          $q.notify({
             progress: true,
             message: errorData.title,
             caption: errorData.detail,
             position: 'bottom-right',
             color: 'negative',
-            icon: 'report_problem'
-          })
+            icon: 'report_problem',
+          });
         } else {
-          context.root.$q.notify({
+          $q.notify({
             progress: true,
             message: 'Network Error',
             caption: 'Can\'t access the APIs, please check your network, ant try again',
             position: 'bottom-right',
             color: 'negative',
-            icon: 'report_problem'
-          })
+            icon: 'report_problem',
+          });
         }
-      })
+      });
 
-    const types = Object.keys(ContentType)
-    const platforms = Object.keys(Platform)
+    const types = Object.keys(ContentType);
+    const platforms = Object.keys(Platform);
 
-    const typesState = ref<boolean[]>([])
+    const typesState = ref<boolean[]>([]);
+
+    const contentTab = ref<string>();
 
     const typesStateChange = (type: ContentType, state: boolean) => {
       if (state) {
@@ -231,59 +250,56 @@ export default defineComponent({
           changeLogId: undefined,
           content: '',
           contentType: ContentType[type],
-          isActive: true
-        }))
-        contentTab.value = type
+          isActive: true,
+        }));
+        contentTab.value = type;
       } else {
-        changelog.contents = changelog.contents.filter(c => c.contentType !== type)
+        changelog.contents = changelog.contents.filter((c) => c.contentType !== type);
         if (changelog.contents.length > 0) {
-          contentTab.value = changelog.contents[0].contentType
+          contentTab.value = changelog.contents[0].contentType;
         } else {
-          contentTab.value = ''
+          contentTab.value = '';
         }
       }
-    }
+    };
 
-    const contentTab = ref<string>()
-
-    const saveStatus = computed(() => {
-      return changelog.versionNo && changelog.releaseDate &&
-        changelog.publisher && changelog.contact &&
-        (changelog.contents.length > 0 &&
-          changelog.contents.filter(c => c.content === null || c.content === '').length > 0)
-    })
+    const saveStatus = computed(() => changelog.versionNo && changelog.releaseDate
+        && changelog.publisher && changelog.contact
+        && (changelog.contents.length > 0
+          && changelog.contents.filter((c) => c.content === null || c.content === '').length > 0));
 
     const saveChangeLog = () => {
-      axios.post<ChangeLog>('changelog', changelog)
-        .then(async response => {
-          const project: MinimizedProject = projects.value.filter(p => p.id === response.data.projectId)[0]
-          await context.root.$router
-            .push({ path: `/${project.owner}/${project.title}/${response.data.versionNo}` })
+      api.post<ChangeLog>('changelog', changelog)
+        .then(async (response) => {
+          const project: MinimizedProject = projects.value
+            .filter((p) => p.id === response.data.projectId)[0];
+          await $router
+            .push({ path: `/${project.owner}/${project.title}/${response.data.versionNo}` });
         })
         .catch((error: AxiosError) => {
-          console.error(error)
+          console.error(error);
           if (error.response && error.response.data) {
-            const errorData = <CommonError> error.response.data
-            context.root.$q.notify({
+            const errorData = <CommonError> error.response.data;
+            $q.notify({
               progress: true,
               message: errorData.title,
               caption: errorData.detail,
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           } else {
-            context.root.$q.notify({
+            $q.notify({
               progress: true,
               message: 'Network Error',
               caption: 'Can\'t access the APIs, please check your network, ant try again',
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           }
-        })
-    }
+        });
+    };
 
     return {
       validatePathVariable,
@@ -298,10 +314,10 @@ export default defineComponent({
       typesStateChange,
       contentTab,
       saveStatus,
-      saveChangeLog
-    }
-  }
-})
+      saveChangeLog,
+    };
+  },
+});
 </script>
 
 <style lang="sass">
