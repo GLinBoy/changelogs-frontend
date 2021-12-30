@@ -77,7 +77,7 @@ export default defineComponent({
 
     const pagination = reactive<Pagination>({
       page: 0,
-      size: 20,
+      size: 10,
       sort: [
         {
           field: 'createdOn',
@@ -87,7 +87,7 @@ export default defineComponent({
     });
 
     const loadData = () => {
-      const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+      const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 10}&sort=${Array.prototype.map
         .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
         .join('&sort=')}`;
 
