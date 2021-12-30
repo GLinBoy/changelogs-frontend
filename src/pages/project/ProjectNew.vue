@@ -8,7 +8,10 @@
               <h5 class="q-mb-sm">Create a new project</h5>
             </div>
             <div class="col-12">
-              <p text-justify>A repository contains all project files, including the revision history. Already have a project repository elsewhere? Import a repository.</p>
+              <p text-justify>A repository contains all project files,
+                including the revision history.
+                Already have a project repository elsewhere?
+                Import a repository.</p>
             </div>
             <div class="col-12">
               <q-form autocomplete="off"
@@ -25,7 +28,8 @@
                     v-model.trim="project.name" label="Project name"
                     :rules="[val => !!val || 'Field is required',
                       val => val.length >= 4 || 'Please use between 4-128 characters',
-                    val => validateName(val) || 'Field may only contain alphanumeric characters and spaces']">
+                    val => validateName(val) ||
+                      'Field may only contain alphanumeric characters and spaces']">
                     <template v-slot:hint>
                       {{ `Your project URL will be: https://changelogs.info/${project.owner}/${project.title}` }}
                     </template>
@@ -84,19 +88,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, watch, computed } from '@vue/composition-api'
-import { Project, Owner, CommonError } from 'components/models'
-import { validateName, validateURL } from 'components/validators'
-import { titleGenerator } from 'components/TitleGenerator'
-import { AxiosError } from 'axios'
-import { getBase64 } from 'components/utils'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  watch,
+  computed,
+} from 'vue';
+import { Project, Owner, CommonError } from 'components/models';
+import { validateName, validateURL } from 'components/validators';
+import { titleGenerator } from 'components/TitleGenerator';
+import { useQuasar } from 'quasar';
+import { api } from 'boot/axios';
+import { AxiosError } from 'axios';
+import { getBase64 } from 'components/utils';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'ProjectEdit',
-  setup (_, context) {
-    const axios = context.root.$axios
+  setup() {
+    const $q = useQuasar();
+    const $router = useRouter();
 
-    const projectLogo = ref<string>()
+    const projectLogo = ref<Blob>();
 
     const project = reactive<Project>({
       id: undefined,
@@ -111,74 +125,72 @@ export default defineComponent({
       readmeLink: undefined,
       license: undefined,
       licenseLink: undefined,
-      organizationId: undefined
-    })
+      organizationId: undefined,
+    });
 
     watch(() => project.name, (nextName) => {
-      project.title = titleGenerator(nextName)
-    })
+      project.title = titleGenerator(nextName);
+    });
 
-    watch(() => projectLogo.value, (newLogo) => {
+    watch(() => projectLogo.value as Blob, (newLogo: Blob) => {
       if (newLogo) {
         getBase64(newLogo)
-          .then(result => {
-            project.logo = <string> result
+          .then((result) => {
+            project.logo = <string> result;
           })
-          .catch(error => {
-            console.error(error)
-          })
+          .catch((error) => {
+            console.error(error);
+          });
       } else {
-        project.logo = undefined
+        project.logo = undefined;
       }
-    })
+    });
 
     const owners = ref<Owner[]>([
       {
         id: undefined,
         name: 'anonymouse',
-        title: 'anonymouse'
-      }
-    ])
+        title: 'anonymouse',
+      },
+    ]);
 
-    project.owner = owners.value.find(o => o.id === undefined)?.title || ''
+    project.owner = owners.value.find((o) => o.id === undefined)?.title || '';
 
     watch(() => project.owner, (nextOwner) => {
-      project.organizationId = owners.value.find(o => o.title === nextOwner)?.id
-    })
+      project.organizationId = owners.value.find((o) => o.title === nextOwner)?.id;
+    });
 
-    const saveStatus = computed(() => {
-      return !(!!project.name && validateName(project.name))
-    })
+    const saveStatus = computed(() => !(!!project.name && validateName(project.name)));
 
     const saveProject = () => {
-      axios.post<Project>('project', project)
-        .then(async response => {
-          await context.root.$router.push({ path: `/project/${response.data.title}` })
+      api.post<Project>('project', project)
+        .then(async (response) => {
+          await $router.push({ path: `/project/${response.data.title}` });
         })
         .catch((error: AxiosError) => {
-          console.error(error)
+          console.error(error);
           if (error.response && error.response.data) {
-            const errorData = <CommonError> error.response.data
-            context.root.$q.notify({
+            const errorData = <CommonError> error.response.data;
+            $q.notify({
               progress: true,
               message: errorData.title,
               caption: errorData.detail,
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           } else {
-            context.root.$q.notify({
+            $q.notify({
               progress: true,
               message: 'Network Error',
               caption: 'Can\'t access the APIs, please check your network, ant try again',
               position: 'bottom-right',
               color: 'negative',
-              icon: 'report_problem'
-            })
+              icon: 'report_problem',
+            });
           }
-        })
-    }
+        });
+    };
 
     return {
       project,
@@ -187,10 +199,10 @@ export default defineComponent({
       validateURL,
       owners,
       saveStatus,
-      saveProject
-    }
-  }
-})
+      saveProject,
+    };
+  },
+});
 </script>
 
 <style lang="sass">
