@@ -1,13 +1,13 @@
-import { RouteConfig } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 
-const routes: RouteConfig[] = [
+const routes: RouteRecordRaw[] = [
   { path: '/login', name: 'Login', component: () => import('pages/Login.vue') },
   {
     path: '/admin',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
+      { path: '', component: () => import('pages/Index.vue') },
+    ],
   },
   {
     path: '/',
@@ -21,7 +21,7 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'Projects', component: () => import('pages/project/Projects.vue') },
           { path: 'new', name: 'ProjectNew', component: () => import('pages/project/ProjectNew.vue') },
-        ]
+        ],
       },
       {
         path: 'changelog',
@@ -29,7 +29,7 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'ChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
           { path: 'new', name: 'ChangeLogNew', component: () => import('pages/changelog/ChangeLogNew.vue') },
-        ]
+        ],
       },
       { path: 'import', name: 'ImportChangeLog', component: () => import('pages/ImportChangeLog.vue') },
       { path: 'notifications', name: 'Notifications', component: () => import('pages/Notifications.vue') },
@@ -42,7 +42,7 @@ const routes: RouteConfig[] = [
         children: [
           { path: 'settings', name: 'ProfileEdit', component: () => import('pages/profile/ProfileEdit.vue') },
           { path: 'projects', name: 'UserProjects', component: () => import('pages/project/Projects.vue') },
-        ]
+        ],
       },
       {
         path: ':project',
@@ -50,17 +50,17 @@ const routes: RouteConfig[] = [
         children: [
           { path: '', name: 'ProjectChangeLogs', component: () => import('pages/changelog/ChangeLogsList.vue') },
           { path: ':version', name: 'ChangeLogsVersion', component: () => import('pages/changelog/ChangeLog.vue') },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '*',
-    component: () => import('pages/Error404.vue')
-  }
-]
+    path: '/:catchAll(.*)*',
+    component: () => import('pages/Error404.vue'),
+  },
+];
 
-export default routes
+export default routes;
