@@ -12,7 +12,9 @@
             {{ changelog.platform }}
             <span v-if="changelog.buildVersion">({{ changelog.buildVersion }})</span>
           </div>
-          <div class="text-subtitle2">by <b>{{ changelog.publisher }}</b>
+          <div class="text-subtitle2">
+            <q-icon name="person"/>
+            <b>{{ changelog.publisher }}</b>
             at
             {{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}
           </div>
