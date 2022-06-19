@@ -26,7 +26,8 @@
             </q-chip>
           </q-item-label>
           <q-item-label caption class="text-white">
-            By <b>
+            <q-icon name="person"/>
+            <b>
               <router-link :to="changelog.publisher"
                 style="text-decoration: none; color: inherit;">
                 {{changelog.publisher}}
