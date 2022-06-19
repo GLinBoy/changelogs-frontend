@@ -14,7 +14,7 @@
               {{ changelog.project.title }}
             </router-link>
             <router-link style="text-decoration: none; color: inherit;"
-              :to="changelog.project.title + '/' + changelog.versionNo">
+              :to="'/' + changelog.project.title + '/' + changelog.versionNo">
               <q-chip square dense size="md">
                 <q-avatar icon="lightbulb" color="blue" text-color="white" />
                 {{ changelog.versionNo }}
