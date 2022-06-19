@@ -1896,10 +1896,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app-webpack@^3.5.3":
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.5.3.tgz#3eed9189591574b52c7de4ec27d1ce1d67eee360"
-  integrity sha512-k0tUvZUS5VAwTdXp3r4WndLZRBKvt3dsIEYICA7w6bTm2aWkbUdqlWKjYp5IwdHmWFj+ISMPa8IsAjM0QFUZew==
+"@quasar/app-webpack@^3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.5.4.tgz#5729b196a957960616caed14d1787f50c90f54a8"
+  integrity sha512-NBZfe9R1/todmD/bCDEG6vLZglAZcecITIIEF77LO3ux3sf9isPes/K9ejvh+6Zg8UxxVNeQFbj3jJBibu6P0Q==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.5"
@@ -6193,10 +6193,10 @@ qs@6.9.7:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
-quasar@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.7.1.tgz#a599978ce2f1f6327e6686a01923ccacd9a75ddd"
-  integrity sha512-V2FcD04nHE07p4p0YEeC3ZIA9kodyZ5wdZ+eXRZhUZ3cFugAneJ1D2WCyKoqwM4OReFCk/1jlqQxCCUaTU4X3g==
+quasar@^2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.7.3.tgz#ff57ac5f3c9a8fdc345f59362d7b0f45c80bc68d"
+  integrity sha512-4YQQP1FbfshXwav9QcOHpvSg4eME4iKzd85m4562EqcfuhRtycC/2WQg+cRxlEr43gEHM0uXaJmybNUWZpoYkw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
