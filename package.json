@@ -13,6 +13,7 @@
   "dependencies": {
     "@quasar/extras": "^1.15.5",
     "axios": "^0.21.1",
+    "babel-loader": "^8.2.5",
     "core-js": "^3.6.5",
     "quasar": "^2.10.0",
     "vue": "^3.0.0",
