@@ -236,20 +236,21 @@ export default defineComponent({
         }
       });
 
-    const types = Object.keys(ContentType);
+    const types: string[] = Object.keys(ContentType);
+
     const platforms = Object.keys(Platform);
 
     const typesState = ref<boolean[]>([]);
 
     const contentTab = ref<string>();
 
-    const typesStateChange = (type: ContentType, state: boolean) => {
+    const typesStateChange = (type: string, state: boolean) => {
       if (state) {
         changelog.contents.push(reactive<ChangeLogContent>({
           id: undefined,
           changeLogId: undefined,
           content: '',
-          contentType: ContentType[type],
+          contentType: ContentType[type as ContentType],
           isActive: true,
         }));
         contentTab.value = type;
