@@ -83,7 +83,7 @@
               <div class="row">
                 <div v-for="(type, index) in types" :key="type" class="col-xs-4 col-md-2">
                   <q-checkbox v-model="typesState[index]" :label="type" keep-color
-                    @input="v=>{typesStateChange(type, v)}"/>
+                    @update:model-value="(v: boolean)=>{typesStateChange(type, v)}"/>
                 </div>
               </div>
             </div>
