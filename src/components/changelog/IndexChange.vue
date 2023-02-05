@@ -29,14 +29,14 @@
             </q-chip>
           </q-item-label>
           <q-item-label caption class="text-white">
-            <q-icon name="person"/>
+            <q-icon name="person"/>&#8202;
             <b>
               <router-link :to="changelog.publisher"
                 style="text-decoration: none; color: inherit;">
                 {{changelog.publisher}}
               </router-link>
             </b>
-            <q-icon name="event_note"/>
+            &#8202;<q-icon name="event_note"/>&#8202;
             <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
           </q-item-label>
         </div>
