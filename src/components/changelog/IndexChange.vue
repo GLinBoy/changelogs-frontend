@@ -3,9 +3,12 @@
     <q-card-section class="bg-primary text-white">
       <div class="row items-center no-wrap q-col-gutter-x-xl">
         <div class="col-1">
-          <q-avatar rounded size="45px" color="white">
-            <img :src="changelog.project.logo" :alt="changelog.project.title + '\'s logo'">
-          </q-avatar>
+          <router-link style="text-decoration: none; color: inherit;"
+              :to="changelog.project.title">
+            <q-avatar rounded size="45px" color="white">
+              <img :src="changelog.project.logo" :alt="changelog.project.title + '\'s logo'">
+            </q-avatar>
+          </router-link>
         </div>
         <div class="col">
           <q-item-label>
