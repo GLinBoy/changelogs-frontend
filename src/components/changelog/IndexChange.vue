@@ -32,7 +32,9 @@
                 style="text-decoration: none; color: inherit;">
                 {{changelog.publisher}}
               </router-link>
-            </b> @ <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
+            </b>
+            <q-icon name="event_note"/>
+            <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
           </q-item-label>
         </div>
 
