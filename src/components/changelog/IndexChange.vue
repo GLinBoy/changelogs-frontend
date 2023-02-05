@@ -4,7 +4,7 @@
       <div class="row items-center no-wrap q-col-gutter-x-xl">
         <div class="col-1">
           <q-avatar rounded size="45px" color="white">
-            <img :src="changelog.project.logo">
+            <img :src="changelog.project.logo" :alt="changelog.project.title + '\'s logo'">
           </q-avatar>
         </div>
         <div class="col">
