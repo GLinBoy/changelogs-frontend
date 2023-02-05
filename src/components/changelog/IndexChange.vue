@@ -14,7 +14,9 @@
           <q-item-label>
             <router-link style="text-decoration: none; color: inherit;"
               :to="changelog.project.title">
-              {{ changelog.project.title }}
+              &#8202;<span class="text-h6 text-weight-bolder">
+                {{ changelog.project.title }}
+              </span>&#8202;
             </router-link>
             <router-link style="text-decoration: none; color: inherit;"
               :to="'/' + changelog.project.title + '/' + changelog.versionNo">
