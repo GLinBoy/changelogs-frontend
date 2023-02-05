@@ -1,9 +1,9 @@
 <template>
   <q-card flat bordered>
     <q-card-section class="bg-primary text-white">
-      <div class="row items-center no-wrap">
+      <div class="row items-center no-wrap q-col-gutter-x-xl">
         <div class="col-1">
-          <q-avatar color="white">
+          <q-avatar size="45px" color="white">
             <img :src="changelog.project.logo">
           </q-avatar>
         </div>
