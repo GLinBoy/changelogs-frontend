@@ -15,7 +15,7 @@
           <div class="text-subtitle2">
             <q-icon name="person"/>
             <b>{{ changelog.publisher }}</b>
-            at
+            <q-icon name="event_note"/>
             {{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}
           </div>
         </div>
