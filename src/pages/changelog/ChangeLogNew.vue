@@ -191,7 +191,7 @@ export default defineComponent({
 
     const projects = ref<MinimizedProject[]>([]);
 
-    api.get<MinimizedProject[]>('project/minimized')
+    api.get<MinimizedProject[]>('projects/minimized')
       .then((response) => {
         projects.value = projects.value.concat(response.data);
         if (response.data && response.data.length > 0) {
@@ -270,7 +270,7 @@ export default defineComponent({
           && changelog.contents.filter((c) => c.content === null || c.content === '').length > 0));
 
     const saveChangeLog = () => {
-      api.post<ChangeLog>('changelog', changelog)
+      api.post<ChangeLog>('changelogs', changelog)
         .then(async (response) => {
           const project: MinimizedProject = projects.value
             .filter((p) => p.id === response.data.projectId)[0];
