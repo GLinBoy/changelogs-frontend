@@ -118,9 +118,9 @@ export default defineComponent({
 
     const saveOrganization = () => {
       isWaiting.value = true;
-      api.post<Organization>('organization', organization)
+      api.post<Organization>('organizations', organization)
         .then(async (response) => {
-          await $router.push({ path: `/organization/${response.data.title}` });
+          await $router.push({ path: `/organizations/${response.data.title}` });
         })
         .catch((error: AxiosError) => {
           if (error.response && error.response.data) {
