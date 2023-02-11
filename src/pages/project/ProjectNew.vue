@@ -163,9 +163,9 @@ export default defineComponent({
     const saveStatus = computed(() => !(!!project.name && validateName(project.name)));
 
     const saveProject = () => {
-      api.post<Project>('project', project)
+      api.post<Project>('projects', project)
         .then(async (response) => {
-          await $router.push({ path: `/project/${response.data.title}` });
+          await $router.push({ path: `/projects/${response.data.title}` });
         })
         .catch((error: AxiosError) => {
           console.error(error);
