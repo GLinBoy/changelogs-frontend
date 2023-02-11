@@ -87,7 +87,7 @@ export default defineComponent({
     });
 
     const loadData = () => {
-      const urlTemplate = `changelog/latest?page=${pagination.page || 0}&size=${pagination.size || 10}&sort=${Array.prototype.map
+      const urlTemplate = `changelogs/latest?page=${pagination.page || 0}&size=${pagination.size || 10}&sort=${Array.prototype.map
         .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
         .join('&sort=')}`;
 
