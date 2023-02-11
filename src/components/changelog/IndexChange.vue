@@ -10,40 +10,45 @@
             </q-avatar>
           </router-link>
         </div>
-        <div class="col">
-          <q-item-label>
-            <router-link style="text-decoration: none; color: inherit;"
-              :to="changelog.project.title">
-              &#8202;<span class="text-h6 text-weight-bolder">
-                {{ changelog.project.title }}
-              </span>&#8202;
-            </router-link>
-            <router-link style="text-decoration: none; color: inherit;"
-              :to="'/' + changelog.project.title + '/' + changelog.versionNo">
-              <q-chip square dense size="md">
-                <q-avatar icon="lightbulb" color="blue" text-color="white" />
-                {{ changelog.versionNo }}
-              </q-chip>
-            </router-link>
-            <q-chip square dense size="md">
-              <q-avatar icon="settings" color="red" text-color="white" />
-              {{ changelog.platform }}
-            </q-chip>
-          </q-item-label>
-          <q-item-label caption class="text-white">
-            <q-icon name="person"/>&#8202;
-            <b>
-              <router-link :to="changelog.publisher"
-                style="text-decoration: none; color: inherit;">
-                {{changelog.publisher}}
+
+        <div class="col-9">
+          <div class="row">
+            <div class="col-12 justify-right">
+              <router-link style="text-decoration: none; color: inherit;"
+                :to="changelog.project.title">
+                &#8202;<span class="text-h6 text-weight-bolder">
+                  {{ changelog.project.title }}
+                </span>&#8202;
               </router-link>
-            </b>
-            &#8202;<q-icon name="event_note"/>&#8202;
-            <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
-          </q-item-label>
+              <router-link style="text-decoration: none; color: inherit;"
+                :to="'/' + changelog.project.title + '/' + changelog.versionNo">
+                <q-chip square dense size="md">
+                  <q-avatar icon="lightbulb" color="blue" text-color="white" />
+                  {{ changelog.versionNo }}
+                </q-chip>
+              </router-link>
+              <q-chip square dense size="md">
+                <q-avatar icon="settings" color="red" text-color="white" />
+                {{ changelog.platform }}
+              </q-chip>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <q-icon name="person"/>&#8202;
+              <b>
+                <router-link :to="changelog.publisher"
+                  style="text-decoration: none; color: inherit;">
+                  {{changelog.publisher}}
+                </router-link>
+              </b>
+              &#8202;<q-icon name="event_note"/>&#8202;
+              <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
+            </div>
+          </div>
         </div>
 
-        <div class="col-auto">
+        <div class="col-2">
           <q-btn flat round icon="share" />
         </div>
       </div>
