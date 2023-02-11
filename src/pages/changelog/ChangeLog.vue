@@ -87,7 +87,7 @@ export default defineComponent({
     });
 
     const loadData = () => {
-      const urlTemplate = `changelog/project/${project}/${version}`;
+      const urlTemplate = `changelogs/project/${project}/${version}`;
 
       api.get<ChangeLog[]>(urlTemplate)
         .then((response) => {
