@@ -91,7 +91,7 @@ export default defineComponent({
     });
 
     const loadData = () => {
-      const urlTemplate = `project?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+      const urlTemplate = `projects?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
         .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
         .join('&sort=')}`;
       api.get<Project[]>(urlTemplate)
