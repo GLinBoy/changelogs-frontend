@@ -88,9 +88,9 @@ export default defineComponent({
     const loadData = () => {
       let urlTemplate = '';
       if (version) {
-        urlTemplate = `changelog/project/${project}/${version}`;
+        urlTemplate = `changelogs/project/${project}/${version}`;
       } else {
-        urlTemplate = `changelog/project/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
+        urlTemplate = `changelogs/project/${project}?page=${pagination.page || 0}&size=${pagination.size || 20}&sort=${Array.prototype.map
           .call(pagination.sort, (s: Sort) => `${s.field},${s.direction}`)
           .join('&sort=')}`;
       }
