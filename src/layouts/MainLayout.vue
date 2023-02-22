@@ -46,6 +46,9 @@
               <q-item clickable v-close-popup to="/anonymouse/projects">
                 <q-item-section>Your projects</q-item-section>
               </q-item>
+              <q-item clickable v-close-popup to="/anonymouse/organizations">
+                <q-item-section>Your organizations</q-item-section>
+              </q-item>
               <q-item clickable v-close-popup>
                 <q-item-section>Your following</q-item-section>
               </q-item>
