@@ -23,6 +23,9 @@
               <q-item clickable v-close-popup to="/project/new">
                 <q-item-section>New Project</q-item-section>
               </q-item>
+              <q-item clickable v-close-popup to="/organization/new">
+                <q-item-section>New Organization</q-item-section>
+              </q-item>
               <q-separator />
               <q-item clickable v-close-popup to="/import">
                 <q-item-section>Import changelog</q-item-section>
