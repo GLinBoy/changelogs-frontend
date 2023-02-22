@@ -18,7 +18,7 @@
           <q-menu>
             <q-list style="min-width: 150px">
               <q-item clickable v-close-popup to="/new">
-                <q-item-section>New changelog</q-item-section>
+                <q-item-section>New Changelog</q-item-section>
               </q-item>
               <q-item clickable v-close-popup to="/project/new">
                 <q-item-section>New Project</q-item-section>
