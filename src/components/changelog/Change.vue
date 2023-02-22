@@ -12,12 +12,6 @@
             {{ changelog.platform }}
             <span v-if="changelog.buildVersion">({{ changelog.buildVersion }})</span>
           </div>
-          <div class="text-subtitle2">
-            <q-icon name="person"/>
-            <b>{{ changelog.publisher }}</b>
-            <q-icon name="event_note"/>
-            {{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}
-          </div>
         </div>
 
         <div class="col-auto">
@@ -34,6 +28,24 @@
         </div>
       </dl>
     </q-card-section>
+
+    <q-separator />
+
+    <q-card-actions>
+      <div class="row">
+        <div class="col-12">
+          <q-icon name="person"/>&#8202;
+          <b>
+            <router-link :to="changelog.publisher"
+              style="text-decoration: none; color: inherit;">
+              {{changelog.publisher}}
+            </router-link>
+          </b>&#8202;
+          <q-icon name="event_note"/>&#8202;
+          <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
+        </div>
+      </div>
+    </q-card-actions>
   </q-card>
 </template>
 
