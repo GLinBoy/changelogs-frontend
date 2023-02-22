@@ -16,6 +16,15 @@ const routes: RouteRecordRaw[] = [
       { path: '', name: 'Home', component: () => import('pages/Index.vue') },
       { path: 'new', name: 'New', component: () => import('pages/changelog/ChangeLogNew.vue') },
       {
+        path: 'organization',
+        component: () => import('pages/organization/OrganizationPage.vue'),
+        children: [
+          { path: '', name: 'Organizations', component: () => import('pages/organization/Organizations.vue') },
+          { path: 'new', name: 'OrganizationNew', component: () => import('pages/organization/OrganizationNew.vue') },
+          { path: ':orgTitle', name: 'Organization', component: () => import('pages/organization/Organization.vue') },
+        ],
+      },
+      {
         path: 'project',
         component: () => import('pages/project/ProjectPage.vue'),
         children: [
