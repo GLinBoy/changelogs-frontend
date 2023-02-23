@@ -1,8 +1,8 @@
 <template>
   <q-card flat bordered>
     <q-card-section class="bg-primary text-white">
-      <div class="row items-center no-wrap q-col-gutter-x-xl">
-        <div class="col-1">
+      <div class="row items-center">
+        <div class="col-xs-2 col-sm-1">
           <router-link style="text-decoration: none; color: inherit;"
               :to="changelog.project.title">
             <q-avatar rounded size="45px" color="white">
@@ -11,15 +11,17 @@
           </router-link>
         </div>
 
-        <div class="col-9">
+        <div class="col-xs-9 col-sm-10">
           <div class="row">
-            <div class="col-12 justify-right">
+            <div class="col-auto">
               <router-link style="text-decoration: none; color: inherit;"
                 :to="changelog.project.title">
                 &#8202;<span class="text-h6 text-weight-bolder">
                   {{ changelog.project.title }}
                 </span>&#8202;
               </router-link>
+            </div>
+            <div class="col-xs-12 col-sm-4">
               <router-link style="text-decoration: none; color: inherit;"
                 :to="'/' + changelog.project.title + '/' + changelog.versionNo">
                 <q-chip square dense size="md">
@@ -35,7 +37,7 @@
           </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-xs-1 col-sm-1">
           <q-btn flat round icon="share" />
         </div>
       </div>
@@ -53,19 +55,19 @@
     <q-separator />
 
     <q-card-actions>
-      <div class="row">
-        <div class="col-12">
-          <q-icon name="person"/>&#8202;
+        <div class="col-6">
+          <q-icon size="sm" name="account_circle"/>&#8202;
           <b>
             <router-link :to="changelog.publisher"
               style="text-decoration: none; color: inherit;">
               {{changelog.publisher}}
             </router-link>
-          </b>&#8202;
-          <q-icon name="event_note"/>&#8202;
+          </b>
+        </div>
+        <div class="col-6 text-right">
+          <q-icon size="sm" name="event_note"/>&#8202;
           <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
         </div>
-      </div>
     </q-card-actions>
 
   </q-card>
