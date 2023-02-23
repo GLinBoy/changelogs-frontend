@@ -32,18 +32,18 @@
     <q-separator />
 
     <q-card-actions>
-      <div class="row">
-        <div class="col-12">
-          <q-icon name="person"/>&#8202;
-          <b>
-            <router-link :to="changelog.publisher"
-              style="text-decoration: none; color: inherit;">
-              {{changelog.publisher}}
-            </router-link>
-          </b>&#8202;
-          <q-icon name="event_note"/>&#8202;
-          <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
-        </div>
+      <div class="col-6">
+        <q-icon size="sm" name="account_circle"/>&#8202;
+        <b>
+          <router-link :to="changelog.publisher"
+            style="text-decoration: none; color: inherit;">
+            {{changelog.publisher}}
+          </router-link>
+        </b>
+      </div>
+      <div class="col-6 text-right">
+        <q-icon size="sm" name="event_note"/>&#8202;
+        <b>{{ date.formatDate(changelog.releaseDate, 'YYYY-MM-DD HH:mm') }}</b>
       </div>
     </q-card-actions>
   </q-card>
