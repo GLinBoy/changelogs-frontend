@@ -2105,10 +2105,10 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
-"@quasar/app-webpack@^3.9.2":
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.9.2.tgz#cbf28e2ef84a94a0507f2f17218b29a2ebf6dd88"
-  integrity sha512-F/LyEXExcnw1niVjuLoSaRLBS2rlmsQJxuOWed6qL9Xnh+KzW1S/V1FxtDtJOQCjbI2S9YvOP6wcmuB6xEiatg==
+"@quasar/app-webpack@^3.9.5":
+  version "3.9.5"
+  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.9.5.tgz#3df7717c7cc9e14066c5bddee7171c1782e33a78"
+  integrity sha512-K9b/Wq2XDwLx4LaABlsHPKKAqzFXeVKLcqNWDgo1V6aSm6I68/L06ru/WHMVLGQG35ZA3d/uOYN5KrgYTCbD0w==
   dependencies:
     "@quasar/babel-preset-app" "2.0.2"
     "@quasar/render-ssr-error" "^1.0.1"
@@ -6577,10 +6577,10 @@ qs@6.9.7:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
-quasar@^2.12.3:
-  version "2.12.3"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.12.3.tgz#dd898cce1bbaf9e02310cc7e777c9c42a836a003"
-  integrity sha512-9KK5TXWGsZ6XFF6MJQ0E98yp++D1PagqSJrKpE91A6QnZ1gng4KtkFI5iPyuqXciFpXvxniiLsZtxD5ZICHvPw==
+quasar@^2.12.5:
+  version "2.12.5"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.12.5.tgz#f5e907500dad613cc5787d89ba2c57f4f4efe80a"
+  integrity sha512-YPG9O+bRq3imN53EGKPyM6rUdx+IGxrs4Q1AljeA4JQh0FibWyPzM44hxFpO8JQiuWAJ5e5wZXhsyeyFyb4a2w==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
