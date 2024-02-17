@@ -39,21 +39,21 @@
           </q-avatar>
           <q-menu>
             <q-list style="min-width: 100px">
-              <q-item clickable v-close-popup to="/anonymouse">
+              <q-item clickable v-close-popup to="/profile/anonymouse">
                 <q-item-section>anonymouse</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup to="/anonymouse/projects">
+              <q-item clickable v-close-popup to="/profile/anonymouse/projects">
                 <q-item-section>Your projects</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup to="/anonymouse/organizations">
+              <q-item clickable v-close-popup to="/profile/anonymouse/organizations">
                 <q-item-section>Your organizations</q-item-section>
               </q-item>
               <q-item clickable v-close-popup>
                 <q-item-section>Your following</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup to="/anonymouse/settings">
+              <q-item clickable v-close-popup to="/profile/anonymouse/settings">
                 <q-item-section>Settings</q-item-section>
               </q-item>
               <q-separator />
