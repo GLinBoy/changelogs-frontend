@@ -35,7 +35,7 @@
       <div class="col-6">
         <q-icon size="sm" name="account_circle"/>&#8202;
         <b>
-          <router-link :to="changelog.publisher"
+          <router-link :to="{ name: 'Profile', params: { username: changelog.publisher }}"
             style="text-decoration: none; color: inherit;">
             {{changelog.publisher}}
           </router-link>
