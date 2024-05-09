@@ -21,6 +21,12 @@
         <div class="col-12">
           <q-btn outline size="sm" class="full-width" label="Edit Profile" />
         </div>
+        <div class="col-12">
+          <span>
+            <q-icon name="account_group_outline" />
+             23 followers · 21 following
+          </span>
+        </div>
       </div>
     </div>
     <div class="col-sm-12 col-md-10">
