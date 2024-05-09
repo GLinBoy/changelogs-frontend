@@ -47,8 +47,9 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'profile/:username',
         name: 'Profile',
-        component: () => import('pages/profile/Profile.vue'),
+        component: () => import('pages/profile/ProfilePage.vue'),
         children: [
+          { path: '', name: 'ProfileView', component: () => import('pages/profile/ProfileView.vue') },
           { path: 'settings', name: 'ProfileEdit', component: () => import('pages/profile/ProfileEdit.vue') },
           { path: 'projects', name: 'UserProjects', component: () => import('pages/project/Projects.vue') },
         ],
