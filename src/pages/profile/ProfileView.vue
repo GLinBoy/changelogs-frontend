@@ -30,7 +30,98 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-10">
-      Profile Content
+      <div class="row q-gutter-sm">
+        <div class="col-12">
+          <span class="text-h4">Projects:</span>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-sm-5 col-md-5">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>A sample project</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <span class="text-h3">Latest changes:</span>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12">
+          <q-card class="my-card">
+            <q-card-section>
+              <span>Last version update</span>
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
     </div>
   </div>
 </template>
