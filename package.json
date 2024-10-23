@@ -13,16 +13,16 @@
   "dependencies": {
     "@quasar/extras": "^1.16.12",
     "axios": "^0.21.4",
-    "babel-loader": "^8.3.0",
-    "core-js": "^3.38.0",
+    "babel-loader": "^8.4.1",
+    "core-js": "^3.38.1",
     "quasar": "^2.17.1",
     "vue": "^3.0.0",
-    "vue-i18n": "^9.13.1",
-    "vue-router": "^4.4.3",
+    "vue-i18n": "^9.14.1",
+    "vue-router": "^4.4.5",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.25.1",
+    "@babel/eslint-parser": "^7.25.9",
     "@quasar/app-webpack": "^3.14.2",
     "@types/node": "^12.20.55",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
@@ -30,7 +30,7 @@
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^7.20.0",
     "workbox-webpack-plugin": "^6.6.0"
   },
